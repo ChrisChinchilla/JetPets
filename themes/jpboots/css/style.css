@@ -66,11 +66,13 @@ a.logo.navbar-btn.pull-left img {
     }
 }
 
-/* Body */
-
 .navbar-default {
-    margin-bottom:90px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom:70px;
     text-transform: uppercase;
+    font-weight: bold;
+    font-size: 15px;
 }
 
 /* Background Image*/
@@ -78,4 +80,14 @@ a.logo.navbar-btn.pull-left img {
 body {
     background-image: url('/sites/all/themes/jpboots/cloudsbg.jpg');
     background-color: #cccccc;
+}
+
+#body {
+    max-height: 463px;
+    overflow-y: auto;
+}
+
+#heart .well {
+    border-radius: 10px;
+    border: medium solid #f39834;
 }
