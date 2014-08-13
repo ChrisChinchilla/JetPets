@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * Short file description here.
+ *
+ * Long description here.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function jpgf_menu() {
+
+  $items['jpgf/import'] = array(
+    'title' => 'Import GF JSON',
+    'page callback' => 'jpgf_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+    );
+
+  return $items;
+}
+
+/**
+ * Implements hook_help().
+ */
+function jpgf_help($path, $arg) {
+
+  switch ($path) {
+    case 'admin/help#jpgf':
+
+      // Return a line-break version of the README.
+    $readme = file_get_contents(drupal_get_path('module', 'jpgf') . '/README.txt');
+    return nl2br($readme);
+  }
+}
+
+/**
+ * Page example callback, referenced in hook_menu().
+ *
+ * Description of what the page displays.
+ * Second line of the description.
+ *
+ * @return string
+ *   The content of the page.
+ */
+function jpgf_page() {
+
+// Setup cURL
+  $ch = curl_init('https://api.getfeedback.com/surveys/29880/responses');
+  curl_setopt_array($ch, array(
+    CURLOPT_HTTPHEADER => array(
+      'Authorization: Bearer 173709a1f841645f8f1a0e0991f37056',
+      'Accept: application/json'
+      ),
+    ));
+
+// Send the request
+  $response = curl_exec($ch);
+  //var_dump($response);
+// Check for errors
+  if($response === FALSE){
+    die(curl_error($ch));
+  }
+
+// Decode the response
+  $responseData = json_decode($response, TRUE);
+
+// Print the date from the response
+  var_dump($responseData);
+}
+
+/**
+ * Implements hook_page_build().
+ *
+ * Add JavaScript and CSS code to every page.
+ */
+function jpgf_page_build() {
+
+  drupal_add_js(drupal_get_path('module', 'jpgf') . '/js/jpgf.js');
+  drupal_add_css(drupal_get_path('module', 'jpgf') . '/css/jpgf.css');
+
+}
