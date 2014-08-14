@@ -47,28 +47,36 @@ function jpgf_help($path, $arg) {
  */
 function jpgf_page() {
 
-// Setup cURL
-  $ch = curl_init('https://api.getfeedback.com/surveys/29880/responses');
-  curl_setopt_array($ch, array(
-    CURLOPT_HTTPHEADER => array(
-      'Authorization: Bearer 173709a1f841645f8f1a0e0991f37056',
-      'Accept: application/json'
-      ),
-    ));
+  process_json();
+  //return $output;
 
-// Send the request
-  $response = curl_exec($ch);
-  //var_dump($response);
+}
+
+function process_json() {
+  $context = stream_context_create(array(
+   'http' => array(
+    'method' => "GET",
+    'header' => 'Authorization: Bearer 173709a1f841645f8f1a0e0991f37056'
+    )
+   ));
+
+  $response =  file_get_contents('https://api.getfeedback.com/surveys/29880/responses', false, $context);
+
 // Check for errors
   if($response === FALSE){
-    die(curl_error($ch));
+    // die(curl_error($ch));
   }
 
-// Decode the response
-  $responseData = json_decode($response, TRUE);
+  else {
 
-// Print the date from the response
-  var_dump($responseData);
+// Decode the response
+
+    $responseData = json_decode($response, TRUE);
+    $returnData = array();
+    foreach ($responseData['active_models'] as $value) {
+     var_dump($value);
+   }
+ }
 }
 
 /**
