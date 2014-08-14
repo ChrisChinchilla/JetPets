@@ -79,12 +79,12 @@ a.logo.navbar-btn.pull-left img {
 
 body {
     background-image: url('/sites/all/themes/jpboots/cloudsbg.jpg');
-    background-color: #cccccc;
-}
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
 
-#body {
-    max-height: 463px;
-    overflow-y: auto;
+
+    background-color: #cccccc;
 }
 
 #heart .well {
