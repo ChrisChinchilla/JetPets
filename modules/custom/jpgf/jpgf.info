@@ -1,0 +1,3 @@
+name = Jet Pets
+description = Grabs getFeedback API and creates nodes.
+core = 7.x
