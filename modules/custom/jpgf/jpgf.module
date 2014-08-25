@@ -47,8 +47,9 @@ function jpgf_help($path, $arg) {
  */
 function jpgf_page() {
 
-  process_json();
-  //return $output;
+  $output = process_json();
+  dpm($output);
+  return $output;
 
 }
 
@@ -74,9 +75,63 @@ function process_json() {
     $responseData = json_decode($response, TRUE);
     $returnData = array();
     foreach ($responseData['active_models'] as $value) {
-     var_dump($value);
-   }
- }
+      if((!empty($value['answers'])) && ($value['status'] == 'completed')) {
+       /*
+       create a node object and add to watchdog
+       We should check if the id already exists
+        */
+       $query = new EntityFieldQuery();
+       $query->entityCondition('entity_type', 'node')
+       ->entityCondition('bundle', 'survey_response')
+       ->propertyCondition('status', 1)
+       ->fieldCondition('field_gf_id', 'value', $value['id'], '=')
+       ->range(0, 1)
+          ->addMetaData('account', user_load(1)); // Run the query as user 1.
+
+          $result = $query->execute();
+
+          if (!isset($result['node'])) {
+            // Create the Contact
+            // If the Survey changes, this code will have to change
+            // More of the contact fields need to be added to the GF Survey. Maybe?
+
+            $cNode = new stdClass(); // We create a new node object
+            $cNode->type = "contact"; // Or any other content type you want
+            $cNode->title = $value['answers'][0]['form_fields'][1]['text'] . " " . $value['answers'][0]['form_fields'][2]['text'];
+            $cNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+            //$node->path = array('alias' => 'your node path'); // Setting a node path
+            $cNode->field_email[LANGUAGE_NONE][0]['value'] = $value['answers'][0]['form_fields'][3]['text'];
+            node_object_prepare($cNode); // Set some default values.
+            $cNode->uid = 1; // Or any id you wish
+
+            $cNode = node_submit($cNode); // Prepare node for a submit
+            node_save($cNode); // After this call we'll get a nid
+            watchdog('jpgf', 'New Contact created with ID %nid', array('nid' => $cNode->nid), WATCHDOG_NOTICE);
+
+            //Create the Survey Response
+            $srNode = new stdClass(); // We create a new node object
+            $srNode->type = "survey_response"; // Or any other content type you want
+            $srNode->title = $value['id'];
+            $srNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+            //$node->path = array('alias' => 'your node path'); // Setting a node path
+            node_object_prepare($srNode); // Set some default values.
+            $srNode->uid = 1; // Or any id you wish
+            $srNode->field_gf_id[LANGUAGE_NONE][0]['value'] = $value['id'];
+            $srNode->field_contact[LANGUAGE_NONE][0]['target_id'] = $cNode->nid;
+
+            $srNode = node_submit($srNode); // Prepare node for a submit
+            node_save($srNode); // After this call we'll get a nid
+            watchdog('jpgf', 'New Survey Response created with ID %nid', array('nid' => $value['id']), WATCHDOG_NOTICE);
+
+            $returnData[] = $value; // This can probably go?
+        } else {
+          watchdog('jpgf', 'Node based on this Survey Response has already been created',NULL, WATCHDOG_NOTICE);
+        }
+      }
+    }
+
+    return $returnData;
+  }
 }
 
 /**
