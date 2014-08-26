@@ -100,13 +100,35 @@ function process_json() {
             $cNode->title = $value['answers'][0]['form_fields'][1]['text'] . " " . $value['answers'][0]['form_fields'][2]['text'];
             $cNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
             //$node->path = array('alias' => 'your node path'); // Setting a node path
-            $cNode->field_email[LANGUAGE_NONE][0]['value'] = $value['answers'][0]['form_fields'][3]['text'];
+            $cNode->field_email[LANGUAGE_NONE][0]['email'] = $value['answers'][0]['form_fields'][3]['text'];
             node_object_prepare($cNode); // Set some default values.
             $cNode->uid = 1; // Or any id you wish
 
             $cNode = node_submit($cNode); // Prepare node for a submit
             node_save($cNode); // After this call we'll get a nid
             watchdog('jpgf', 'New Contact created with ID %nid', array('nid' => $cNode->nid), WATCHDOG_NOTICE);
+
+            // Create the Pet
+            // If the Survey changes, this code will have to change
+            // More of the pet fields need to be added to the GF Survey. Maybe?
+
+            $pNode = new stdClass(); // We create a new node object
+            $pNode->type = "pet"; // Or any other content type you want
+            $pNode->title = $value['answers'][0]['form_fields'][0]['text'];
+            $pNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+            //$node->path = array('alias' => 'your node path'); // Setting a node path
+            //Could the below be better, using taxonomy to allow for future expansion, but will it?
+            $petSex = taxonomy_get_term_by_name($value['answers'][0]['form_fields'][4]['text'], 'pet_sex');
+            if(!empty($petSex)) $pNode->field_pet_sex[LANGUAGE_NONE][0]['tid'] = key($petSex);
+            $petType = taxonomy_get_term_by_name($value['answers'][11]['choices'][0]['text'], 'pet_type');
+            if(!empty($petType)) $pNode->field_pet_type[LANGUAGE_NONE][0]['tid'] = key($petType);
+            node_object_prepare($cNode); // Set some default values.
+            $pNode->uid = 1; // Or any id you wish
+
+            $pNode = node_submit($pNode); // Prepare node for a submit
+            node_save($pNode); // After this call we'll get a nid
+            watchdog('jpgf', 'New Pet created with ID %nid', array('nid' => $pNode->nid), WATCHDOG_NOTICE);
+
 
             //Create the Survey Response
             $srNode = new stdClass(); // We create a new node object
@@ -118,21 +140,21 @@ function process_json() {
             $srNode->uid = 1; // Or any id you wish
             $srNode->field_gf_id[LANGUAGE_NONE][0]['value'] = $value['id'];
             $srNode->field_contact[LANGUAGE_NONE][0]['target_id'] = $cNode->nid;
-
+            $srNode->field_pet[LANGUAGE_NONE][0]['target_id'] = $pNode->nid;
             $srNode = node_submit($srNode); // Prepare node for a submit
             node_save($srNode); // After this call we'll get a nid
             watchdog('jpgf', 'New Survey Response created with ID %nid', array('nid' => $value['id']), WATCHDOG_NOTICE);
 
             $returnData[] = $value; // This can probably go?
-        } else {
-          watchdog('jpgf', 'Node based on this Survey Response has already been created',NULL, WATCHDOG_NOTICE);
+          } else {
+            watchdog('jpgf', 'Node based on this Survey Response has already been created',NULL, WATCHDOG_NOTICE);
+          }
         }
       }
-    }
 
-    return $returnData;
+      return $returnData;
+    }
   }
-}
 
 /**
  * Implements hook_page_build().
