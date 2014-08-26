@@ -46,7 +46,7 @@ function jpgf_help($path, $arg) {
  *   The content of the page.
  */
 function jpgf_page() {
-
+//This can all go after testing
   $output = process_json();
   dpm($output);
   return $output;
@@ -146,12 +146,15 @@ function process_json() {
             watchdog('jpgf', 'New Survey Response created with ID %nid', array('nid' => $value['id']), WATCHDOG_NOTICE);
 
             $returnData[] = $value; // This can probably go?
+            //drupal_mail("example_module", "outgoing_message" ...)
+
+            drupal_mail('jpgf', 'srprocesscomplete', to, language, params = array(), from = NULL, send = TRUE)
           } else {
             watchdog('jpgf', 'Node based on this Survey Response has already been created',NULL, WATCHDOG_NOTICE);
           }
         }
       }
-
+//This can go after testing?
       return $returnData;
     }
   }
@@ -166,4 +169,8 @@ function jpgf_page_build() {
   drupal_add_js(drupal_get_path('module', 'jpgf') . '/js/jpgf.js');
   drupal_add_css(drupal_get_path('module', 'jpgf') . '/css/jpgf.css');
 
+}
+
+function jpgf_cron() {
+  process_json();
 }
