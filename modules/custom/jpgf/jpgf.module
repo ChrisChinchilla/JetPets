@@ -141,6 +141,36 @@ function process_json() {
             $srNode->field_gf_id[LANGUAGE_NONE][0]['value'] = $value['id'];
             $srNode->field_contact[LANGUAGE_NONE][0]['target_id'] = $cNode->nid;
             $srNode->field_pet[LANGUAGE_NONE][0]['target_id'] = $pNode->nid;
+
+            /* We have a bunch of field collection fields that hold a reference to each pet character and this response's score against each one. For now we are generating random numbers, later we will fill in the real processing.
+
+            For that I suggest before entering the FC loop we build arrays of each chracter and score, sort (for top 2) then pass into matching fc values somehow */
+
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', 'pet_character')
+            ->propertyCondition('status', 1)
+            ->range(0, 5);
+
+            $result = $query->execute();
+
+            if (isset($result['node'])) {
+              $nids = array_keys($result['node']);
+              $items = entity_load('node', $nids);
+              foreach ($items as $key => $node) {
+                // Create a new field collection
+                $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_pet_characters'));
+
+                // Load items into field collection
+                $field_collection_item->field_linked_pet_character[LANGUAGE_NONE][$key]['target_id'] = $node->nid;
+                $field_collection_item->field_linked_character_score[LANGUAGE_NONE][$key]['value'] = rand(0,10);
+
+                // Save field collection item
+                $field_collection_item->setHostEntity('node', $srNode);
+                $field_collection_item->save(TRUE);
+              }
+            }
+
             $srNode = node_submit($srNode); // Prepare node for a submit
             node_save($srNode); // After this call we'll get a nid
             watchdog('jpgf', 'New Survey Response created with ID %nid', array('nid' => $value['id']), WATCHDOG_NOTICE);
@@ -148,13 +178,20 @@ function process_json() {
             $returnData[] = $value; // This can probably go?
             //drupal_mail("example_module", "outgoing_message" ...)
 
-            drupal_mail('jpgf', 'srprocesscomplete', to, language, params = array(), from = NULL, send = TRUE)
+            $params = array(
+              'petName' => $pNode->title,
+              'petType' => 'tbc',
+              'image' => 'tbc'
+              );
+
+            $message = drupal_mail('jpgf', 'srprocesscomplete', $value['answers'][0]['form_fields'][3]['text'],LANGUAGE_NONE, $params);
+            dpm($message);
           } else {
             watchdog('jpgf', 'Node based on this Survey Response has already been created',NULL, WATCHDOG_NOTICE);
           }
         }
       }
-//This can go after testing?
+      //This can go after testing?
       return $returnData;
     }
   }
