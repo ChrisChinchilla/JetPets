@@ -123,15 +123,12 @@ function process_json()
                     //Could the below be better, using taxonomy to allow for future expansion, but will it?
                     $petSex = taxonomy_get_term_by_name($value['answers'][0]['form_fields'][5]['text'], 'pet_sex');
                     if (!empty($petSex)) $pNode->field_pet_sex[LANGUAGE_NONE][0]['tid'] = key($petSex);
-                    $petType = taxonomy_get_term_by_name($value['answers'][10]['choices'][0]['text'], 'pet_type');
+                    if ($value['answers'][10]['choices'][0]['text'] == 'Cat') $petType = taxonomy_get_term_by_name($value['answers'][10]['choices'][0]['text'], 'pet_type');
+                    if ($value['answers'][11]['choices'][0]['text'] == 'Dog') $petType = taxonomy_get_term_by_name($value['answers'][11]['choices'][0]['text'], 'pet_type');
+                    // TODO: The above will cause warnings at the moment
                     if (!empty($petType)) $pNode->field_pet_type[LANGUAGE_NONE][0]['tid'] = key($petType);
                     node_object_prepare($cNode); // Set some default values.
                     $pNode->uid = 1; // Or any id you wish
-
-                    $pNode = node_submit($pNode); // Prepare node for a submit
-                    node_save($pNode); // After this call we'll get a nid
-                    watchdog('jpgf', 'New Pet created with ID %nid', array('nid' => $pNode->nid), WATCHDOG_NOTICE);
-
 
                     //Create the Survey Response
                     $srNode = new stdClass(); // We create a new node object
@@ -143,7 +140,6 @@ function process_json()
                     $srNode->uid = 1; // Or any id you wish
                     $srNode->field_gf_id[LANGUAGE_NONE][0]['value'] = $value['id'];
                     $srNode->field_contact[LANGUAGE_NONE][0]['target_id'] = $cNode->nid;
-                    $srNode->field_pet[LANGUAGE_NONE][0]['target_id'] = $pNode->nid;
 
                     /* We have a bunch of field collection fields that hold a reference to each pet character and this response's score against each one. For now we are generating random numbers, later we will fill in the real processing.
 
@@ -156,10 +152,10 @@ function process_json()
                         ->fieldCondition('field_pet_type', 'tid', key($petType))
                         ->range(0, 10);
                     $result = $query->execute();
-
+                    $nids = array();
                     if (isset($result['node'])) {
                         $nids = array_keys($result['node']);
-                        }
+                    }
                     $characterArray = $nids;
                     $scoreArray = array();
                     $scoreArray[0] = 0;
@@ -382,7 +378,7 @@ function process_json()
                                 //Twinkle Toes
                                 $scoreArray[5] += 3;
                                 break;
-                            case 'Mathematical':
+                            case 'Mathematical Approach':
                                 //Wanderer
                                 $scoreArray[0] += 7;
                                 //Rough Nut
@@ -711,7 +707,7 @@ function process_json()
                         }
                     }
 
-                    //Question 7, Where to love For Dogs
+                    //Question 7, Where to live For Dogs
                     if (!empty($value['answers'][4]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][4]['choices'][0]['text']) {
                             case 'Big house with security':
@@ -894,8 +890,8 @@ function process_json()
                     // TODO: Q6 Vehicle question here
 
                     //Question 5, What costume For Dogs
-                    if (!empty($value['answers'][5]['choices'][0]['text']) && (key($petType) == 3)) {
-                        switch ($value['answers'][5]['choices'][0]['text']) {
+                    if (!empty($value['answers'][6]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][6]['choices'][0]['text']) {
                             case 'Fluffy Rabbit':
                                 //Wanderer
                                 $scoreArray[0] += 0;
@@ -1074,8 +1070,8 @@ function process_json()
                     }
 
                     //Question 4, What Movie For Dogs
-                    if (!empty($value['answers'][6]['choices'][0]['text']) && (key($petType) == 3)) {
-                        switch ($value['answers'][6]['choices'][0]['text']) {
+                    if (!empty($value['answers'][7]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][7]['choices'][0]['text']) {
                             case 'Adventure':
                                 //Wanderer
                                 $scoreArray[0] += 7;
@@ -1347,8 +1343,8 @@ function process_json()
                     }
 
                     //Question 2, What Recreation For Dogs
-                    if (!empty($value['answers'][8]['choices'][0]['text']) && (key($petType) == 3)) {
-                        switch ($value['answers'][8]['choices'][0]['text']) {
+                    if (!empty($value['answers'][9]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][9]['choices'][0]['text']) {
                             case 'Fly fishing':
                                 //Wanderer
                                 $scoreArray[0] += 10;
@@ -1527,8 +1523,8 @@ function process_json()
                     }
 
                     //Question 1, What Work For Dogs
-                    if (!empty($value['answers'][9]['choices'][0]['text']) && (key($petType) == 3)) {
-                        switch ($value['answers'][9]['choices'][0]['text']) {
+                    if (!empty($value['answers'][10]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][10]['choices'][0]['text']) {
                             case 'Trades person':
                                 //Wanderer
                                 $scoreArray[0] += 7;
@@ -1715,13 +1711,33 @@ function process_json()
                         // Wrap it
                         $wrapper = entity_metadata_wrapper('field_collection_item', $example_entity);
                         // Set the currrent value in the loop
-                        dpm($value);
                         $wrapper->field_linked_pet_character->set($value);
-                        dpm($scoreArray[$key]);
                         $wrapper->field_linked_character_score->set($scoreArray[$key]);
                         $wrapper->save();
                     }
 
+                    // What are the top two?
+                    asort($scoreArray);
+                    dpm($scoreArray);
+                    $last = end($scoreArray);
+                    dpm(key($scoreArray));
+                    $pNode->field_pet_character[LANGUAGE_NONE][0]['target_id'] = $characterArray[key($scoreArray)];
+
+                    $secondLast = prev($scoreArray);
+                    dpm(key($scoreArray));
+                    // Save the references
+                    $pNode->field_pet_character[LANGUAGE_NONE][1]['target_id'] = $characterArray[key($scoreArray)];
+
+                    //Save pet
+                    $pNode = node_submit($pNode); // Prepare node for a submit
+                    node_save($pNode); // After this call we'll get a nid
+
+                    //Save Pet Ref
+                    $srNode->field_pet[LANGUAGE_NONE][0]['target_id'] = $pNode->nid;
+
+                    watchdog('jpgf', 'New Pet created with ID %nid', array('nid' => $pNode->nid), WATCHDOG_NOTICE);
+
+                    //Save SR
                     $srNode = node_submit($srNode); // Prepare node for a submit
                     node_save($srNode); // After this call we'll get a nid
                     watchdog('jpgf', 'New Survey Response created with ID %nid', array('nid' => $value['id']), WATCHDOG_NOTICE);
@@ -1753,10 +1769,8 @@ function process_json()
  */
 function jpgf_page_build()
 {
-
     drupal_add_js(drupal_get_path('module', 'jpgf') . '/js/jpgf.js');
     drupal_add_css(drupal_get_path('module', 'jpgf') . '/css/jpgf.css');
-
 }
 
 function jpgf_cron()
