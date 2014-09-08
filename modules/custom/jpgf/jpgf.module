@@ -10,30 +10,32 @@
 /**
  * Implements hook_menu().
  */
-function jpgf_menu() {
+function jpgf_menu()
+{
 
-  $items['jpgf/import'] = array(
-    'title' => 'Import GF JSON',
-    'page callback' => 'jpgf_page',
-    'access arguments' => array('access content'),
-    'type' => MENU_NORMAL_ITEM,
+    $items['jpgf/import'] = array(
+        'title' => 'Import GF JSON',
+        'page callback' => 'jpgf_page',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
     );
 
-  return $items;
+    return $items;
 }
 
 /**
  * Implements hook_help().
  */
-function jpgf_help($path, $arg) {
+function jpgf_help($path, $arg)
+{
 
-  switch ($path) {
-    case 'admin/help#jpgf':
+    switch ($path) {
+        case 'admin/help#jpgf':
 
-      // Return a line-break version of the README.
-    $readme = file_get_contents(drupal_get_path('module', 'jpgf') . '/README.txt');
-    return nl2br($readme);
-  }
+            // Return a line-break version of the README.
+            $readme = file_get_contents(drupal_get_path('module', 'jpgf') . '/README.txt');
+            return nl2br($readme);
+    }
 }
 
 /**
@@ -45,169 +47,1719 @@ function jpgf_help($path, $arg) {
  * @return string
  *   The content of the page.
  */
-function jpgf_page() {
+function jpgf_page()
+{
 //This can all go after testing
-  $output = process_json();
-  dpm($output);
-  return $output;
+    $output = process_json();
+    dpm($output);
+    return $output;
 
 }
 
-function process_json() {
-  $context = stream_context_create(array(
-   'http' => array(
-    'method' => "GET",
-    'header' => 'Authorization: Bearer 173709a1f841645f8f1a0e0991f37056'
-    )
-   ));
+function process_json()
+{
+    $context = stream_context_create(array(
+        'http' => array(
+            'method' => "GET",
+            'header' => 'Authorization: Bearer 173709a1f841645f8f1a0e0991f37056'
+        )
+    ));
 
-  $response =  file_get_contents('https://api.getfeedback.com/surveys/29880/responses', false, $context);
+    $response = file_get_contents('https://api.getfeedback.com/surveys/29880/responses', false, $context);
 
 // Check for errors
-  if($response === FALSE){
-    // die(curl_error($ch));
-  }
-
-  else {
+    if ($response === FALSE) {
+        // die(curl_error($ch));
+    } else {
 
 // Decode the response
 
-    $responseData = json_decode($response, TRUE);
-    $returnData = array();
-    foreach ($responseData['active_models'] as $value) {
-      if((!empty($value['answers'])) && ($value['status'] == 'completed')) {
-       /*
-       create a node object and add to watchdog
-       We should check if the id already exists
-        */
-       $query = new EntityFieldQuery();
-       $query->entityCondition('entity_type', 'node')
-       ->entityCondition('bundle', 'survey_response')
-       ->propertyCondition('status', 1)
-       ->fieldCondition('field_gf_id', 'value', $value['id'], '=')
-       ->range(0, 1)
-          ->addMetaData('account', user_load(1)); // Run the query as user 1.
+        $responseData = json_decode($response, TRUE);
+        dpm($responseData);
+        $returnData = array();
+        foreach ($responseData['active_models'] as $value) {
+            if ((!empty($value['answers'])) && ($value['status'] == 'completed')) {
+                /*
+                create a node object and add to watchdog
+                We should check if the id already exists
+                 */
+                $query = new EntityFieldQuery();
+                $query->entityCondition('entity_type', 'node')
+                    ->entityCondition('bundle', 'survey_response')
+                    ->propertyCondition('status', 1)
+                    ->fieldCondition('field_gf_id', 'value', $value['id'], '=')
+                    ->range(0, 1)
+                    ->addMetaData('account', user_load(1)); // Run the query as user 1.
 
-          $result = $query->execute();
+                $result = $query->execute();
 
-          if (!isset($result['node'])) {
-            // Create the Contact
-            // If the Survey changes, this code will have to change
-            // More of the contact fields need to be added to the GF Survey. Maybe?
+                if (!isset($result['node'])) {
+                    // Create the Contact
+                    // If the Survey changes, this code will have to change
+                    // More of the contact fields need to be added to the GF Survey. Maybe?
 
-            $cNode = new stdClass(); // We create a new node object
-            $cNode->type = "contact"; // Or any other content type you want
-            $cNode->title = $value['answers'][0]['form_fields'][1]['text'] . " " . $value['answers'][0]['form_fields'][2]['text'];
-            $cNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
-            //$node->path = array('alias' => 'your node path'); // Setting a node path
-            $cNode->field_email[LANGUAGE_NONE][0]['email'] = $value['answers'][0]['form_fields'][3]['text'];
-            node_object_prepare($cNode); // Set some default values.
-            $cNode->uid = 1; // Or any id you wish
+                    $cNode = new stdClass(); // We create a new node object
+                    $cNode->type = "contact"; // Or any other content type you want
+                    $cNode->title = $value['answers'][0]['form_fields'][1]['text'] . " " . $value['answers'][0]['form_fields'][2]['text'];
+                    $cNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                    //$node->path = array('alias' => 'your node path'); // Setting a node path
+                    $cNode->field_email[LANGUAGE_NONE][0]['email'] = $value['answers'][0]['form_fields'][4]['text'];
+                    node_object_prepare($cNode); // Set some default values.
+                    $cNode->uid = 1; // Or any id you wish
 
-            $cNode = node_submit($cNode); // Prepare node for a submit
-            node_save($cNode); // After this call we'll get a nid
-            watchdog('jpgf', 'New Contact created with ID %nid', array('nid' => $cNode->nid), WATCHDOG_NOTICE);
+                    $cNode = node_submit($cNode); // Prepare node for a submit
+                    node_save($cNode); // After this call we'll get a nid
+                    watchdog('jpgf', 'New Contact created with ID %nid', array('nid' => $cNode->nid), WATCHDOG_NOTICE);
 
-            // Create the Pet
-            // If the Survey changes, this code will have to change
-            // More of the pet fields need to be added to the GF Survey. Maybe?
+                    // Create the Pet
+                    // If the Survey changes, this code will have to change
+                    // More of the pet fields need to be added to the GF Survey. Maybe?
 
-            $pNode = new stdClass(); // We create a new node object
-            $pNode->type = "pet"; // Or any other content type you want
-            $pNode->title = $value['answers'][0]['form_fields'][0]['text'];
-            $pNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
-            //$node->path = array('alias' => 'your node path'); // Setting a node path
-            //Could the below be better, using taxonomy to allow for future expansion, but will it?
-            $petSex = taxonomy_get_term_by_name($value['answers'][0]['form_fields'][4]['text'], 'pet_sex');
-            if(!empty($petSex)) $pNode->field_pet_sex[LANGUAGE_NONE][0]['tid'] = key($petSex);
-            $petType = taxonomy_get_term_by_name($value['answers'][11]['choices'][0]['text'], 'pet_type');
-            if(!empty($petType)) $pNode->field_pet_type[LANGUAGE_NONE][0]['tid'] = key($petType);
-            node_object_prepare($cNode); // Set some default values.
-            $pNode->uid = 1; // Or any id you wish
+                    $pNode = new stdClass(); // We create a new node object
+                    $pNode->type = "pet"; // Or any other content type you want
+                    $pNode->title = $value['answers'][0]['form_fields'][0]['text'];
+                    $pNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                    //$node->path = array('alias' => 'your node path'); // Setting a node path
+                    //Could the below be better, using taxonomy to allow for future expansion, but will it?
+                    $petSex = taxonomy_get_term_by_name($value['answers'][0]['form_fields'][5]['text'], 'pet_sex');
+                    if (!empty($petSex)) $pNode->field_pet_sex[LANGUAGE_NONE][0]['tid'] = key($petSex);
+                    $petType = taxonomy_get_term_by_name($value['answers'][10]['choices'][0]['text'], 'pet_type');
+                    if (!empty($petType)) $pNode->field_pet_type[LANGUAGE_NONE][0]['tid'] = key($petType);
+                    node_object_prepare($cNode); // Set some default values.
+                    $pNode->uid = 1; // Or any id you wish
 
-            $pNode = node_submit($pNode); // Prepare node for a submit
-            node_save($pNode); // After this call we'll get a nid
-            watchdog('jpgf', 'New Pet created with ID %nid', array('nid' => $pNode->nid), WATCHDOG_NOTICE);
+                    $pNode = node_submit($pNode); // Prepare node for a submit
+                    node_save($pNode); // After this call we'll get a nid
+                    watchdog('jpgf', 'New Pet created with ID %nid', array('nid' => $pNode->nid), WATCHDOG_NOTICE);
 
 
-            //Create the Survey Response
-            $srNode = new stdClass(); // We create a new node object
-            $srNode->type = "survey_response"; // Or any other content type you want
-            $srNode->title = $value['id'];
-            $srNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
-            //$node->path = array('alias' => 'your node path'); // Setting a node path
-            node_object_prepare($srNode); // Set some default values.
-            $srNode->uid = 1; // Or any id you wish
-            $srNode->field_gf_id[LANGUAGE_NONE][0]['value'] = $value['id'];
-            $srNode->field_contact[LANGUAGE_NONE][0]['target_id'] = $cNode->nid;
-            $srNode->field_pet[LANGUAGE_NONE][0]['target_id'] = $pNode->nid;
+                    //Create the Survey Response
+                    $srNode = new stdClass(); // We create a new node object
+                    $srNode->type = "survey_response"; // Or any other content type you want
+                    $srNode->title = $value['id'];
+                    $srNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                    //$node->path = array('alias' => 'your node path'); // Setting a node path
+                    node_object_prepare($srNode); // Set some default values.
+                    $srNode->uid = 1; // Or any id you wish
+                    $srNode->field_gf_id[LANGUAGE_NONE][0]['value'] = $value['id'];
+                    $srNode->field_contact[LANGUAGE_NONE][0]['target_id'] = $cNode->nid;
+                    $srNode->field_pet[LANGUAGE_NONE][0]['target_id'] = $pNode->nid;
 
-            /* We have a bunch of field collection fields that hold a reference to each pet character and this response's score against each one. For now we are generating random numbers, later we will fill in the real processing.
+                    /* We have a bunch of field collection fields that hold a reference to each pet character and this response's score against each one. For now we are generating random numbers, later we will fill in the real processing.
 
-            For that I suggest before entering the FC loop we build arrays of each chracter and score, sort (for top 2) then pass into matching fc values somehow */
+                    For that I suggest before entering the FC loop we build arrays of each chracter and score, sort (for top 2) then pass into matching fc values somehow */
 
-            $query = new EntityFieldQuery();
-            $query->entityCondition('entity_type', 'node')
-            ->entityCondition('bundle', 'pet_character')
-            ->propertyCondition('status', 1)
-            ->range(0, 5);
+                    $query = new EntityFieldQuery();
+                    $query->entityCondition('entity_type', 'node')
+                        ->entityCondition('bundle', 'pet_character')
+                        ->propertyCondition('status', 1)
+                        ->fieldCondition('field_pet_type', 'tid', key($petType))
+                        ->range(0, 10);
+                    $result = $query->execute();
 
-            $result = $query->execute();
+                    if (isset($result['node'])) {
+                        $nids = array_keys($result['node']);
+                        }
+                    $characterArray = $nids;
+                    $scoreArray = array();
+                    $scoreArray[0] = 0;
+                    $scoreArray[1] = 0;
+                    $scoreArray[2] = 0;
+                    $scoreArray[3] = 0;
+                    $scoreArray[4] = 0;
+                    $scoreArray[5] = 0;
 
-            if (isset($result['node'])) {
-              $nids = array_keys($result['node']);
-              $items = entity_load('node', $nids);
-              foreach ($items as $key => $node) {
-                // Create a new field collection
-                $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_pet_characters'));
+                    // The below seems very brittle, but not sure what else to do right now?
 
-                // Load items into field collection
-                $field_collection_item->field_linked_pet_character[LANGUAGE_NONE][$key]['target_id'] = $node->nid;
-                $field_collection_item->field_linked_character_score[LANGUAGE_NONE][$key]['value'] = rand(0,10);
+                    //Question 10, what drink? For Dogs
+                    if (!empty($value['answers'][1]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][1]['choices'][0]['text']) {
+                            case 'Fruit Smoothie':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 7;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 5;
+                                //Twinkle Toes
+                                $scoreArray[5] += 7;
+                                break;
+                            case 'Caffiene Hit':
+                                //Wanderer
+                                $scoreArray[0] += 8;
+                                //Rough Nut
+                                $scoreArray[1] += 6;
+                                //Debonaire
+                                $scoreArray[2] += 10;
+                                //Buddy
+                                $scoreArray[3] += 0;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 7;
+                                break;
+                            case 'Fine Wine':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 7;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Tequila Shot':
+                                //Wanderer
+                                $scoreArray[0] += 6;
+                                //Rough Nut
+                                $scoreArray[1] += 7;
+                                //Debonaire
+                                $scoreArray[2] += 0;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Green Tea':
+                                //Wanderer
+                                $scoreArray[0] += 3;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 6;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 6;
+                                break;
+                            case 'Cold Beer':
+                                //Wanderer
+                                $scoreArray[0] += 7;
+                                //Rough Nut
+                                $scoreArray[1] += 10;
+                                //Debonaire
+                                $scoreArray[2] += 0;
+                                //Buddy
+                                $scoreArray[3] += 2;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 2;
+                                break;
+                        }
+                    }
 
-                // Save field collection item
-                $field_collection_item->setHostEntity('node', $srNode);
-                $field_collection_item->save(TRUE);
-              }
+                    //Question 10, what drink? For Cats
+                    if (!empty($value['answers'][1]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][1]['choices'][0]['text']) {
+                            case 'Fruit Smoothie':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 10;
+                                //Timid Kitty
+                                $scoreArray[1] += 7;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 6;
+                                //Party Animal
+                                $scoreArray[4] += 8;
+                                //Crazy Cat
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Caffiene Hit':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 5;
+                                //Timid Kitty
+                                $scoreArray[1] += 0;
+                                //Fluffy Fun
+                                $scoreArray[2] += 0;
+                                //Steady Sam
+                                $scoreArray[3] += 0;
+                                //Party Animal
+                                $scoreArray[4] += 7;
+                                //Crazy Cat
+                                $scoreArray[5] += 10;
+                                break;
+                            case 'Fine Wine':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 5;
+                                //Timid Kitty
+                                $scoreArray[1] += 0;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 7;
+                                //Crazy Cat
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Tequila Shot':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 3;
+                                //Timid Kitty
+                                $scoreArray[1] += 1;
+                                //Fluffy Fun
+                                $scoreArray[2] += 5;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 8;
+                                break;
+                            case 'Green Tea':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 4;
+                                //Timid Kitty
+                                $scoreArray[1] += 10;
+                                //Fluffy Fun
+                                $scoreArray[2] += 4;
+                                //Steady Sam
+                                $scoreArray[3] += 5;
+                                //Party Animal
+                                $scoreArray[4] += 3;
+                                //Crazy Cat
+                                $scoreArray[5] += 5;
+                                break;
+                            case 'Cold Beer':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 3;
+                                //Timid Kitty
+                                $scoreArray[1] += 1;
+                                //Fluffy Fun
+                                $scoreArray[2] += 2;
+                                //Steady Sam
+                                $scoreArray[3] += 10;
+                                //Party Animal
+                                $scoreArray[4] += 8;
+                                //Crazy Cat
+                                $scoreArray[5] += 4;
+                                break;
+                        }
+                    }
+
+                    //Question 9, Problem solving For Dogs
+                    if (!empty($value['answers'][2]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][2]['choices'][0]['text']) {
+                            case 'Care & Compromise':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 7;
+                                //Buddy
+                                $scoreArray[3] += 10;
+                                //Cruiser
+                                $scoreArray[4] += 6;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Police Identity Kit':
+                                //Wanderer
+                                $scoreArray[0] += 10;
+                                //Rough Nut
+                                $scoreArray[1] += 5;
+                                //Debonaire
+                                $scoreArray[2] += 9;
+                                //Buddy
+                                $scoreArray[3] += 0;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Mathematical':
+                                //Wanderer
+                                $scoreArray[0] += 7;
+                                //Rough Nut
+                                $scoreArray[1] += 2;
+                                //Debonair
+                                $scoreArray[2] += 2;
+                                //Buddy
+                                $scoreArray[3] += 2;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 8;
+                                break;
+                            case 'Outsource - Hired Help':
+                                //Wanderer
+                                $scoreArray[0] += 4;
+                                //Rough Nut
+                                $scoreArray[1] += 4;
+                                //Debonaire
+                                $scoreArray[2] += 5;
+                                //Buddy
+                                $scoreArray[3] += 0;
+                                //Cruiser
+                                $scoreArray[4] += 5;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Visit a psychic':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 1;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 2;
+                                //Twinkle Toes
+                                $scoreArray[5] += 5;
+                                break;
+                            case 'Home DIY approach':
+                                //Wanderer
+                                $scoreArray[0] += 9;
+                                //Rough Nut
+                                $scoreArray[1] += 7;
+                                //Debonaire
+                                $scoreArray[2] += 6;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 6;
+                                //Twinkle Toes
+                                $scoreArray[5] += 1;
+                                break;
+                        }
+                    }
+
+                    //Question 9, problem solving For Cats
+                    if (!empty($value['answers'][2]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][2]['choices'][0]['text']) {
+                            case 'Care & Compromise':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 10;
+                                //Timid Kitty
+                                $scoreArray[1] += 2;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 5;
+                                //Party Animal
+                                $scoreArray[4] += 6;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Police Identity Kit':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 4;
+                                //Timid Kitty
+                                $scoreArray[1] += 10;
+                                //Fluffy Fun
+                                $scoreArray[2] += 3;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 0;
+                                //Crazy Cat
+                                $scoreArray[5] += 6;
+                                break;
+                            case 'Mathematical':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 4;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 0;
+                                //Crazy Cat
+                                $scoreArray[5] += 8;
+                                break;
+                            case 'Outsource - Hired Help':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 3;
+                                //Timid Kitty
+                                $scoreArray[1] += 4;
+                                //Fluffy Fun
+                                $scoreArray[2] += 4;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Visit a psychic':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 7;
+                                //Timid Kitty
+                                $scoreArray[1] += 5;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 8;
+                                //Crazy Cat
+                                $scoreArray[5] += 8;
+                                break;
+                            case 'Home DIY approach':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 3;
+                                //Timid Kitty
+                                $scoreArray[1] += 1;
+                                //Fluffy Fun
+                                $scoreArray[2] += 3;
+                                //Steady Sam
+                                $scoreArray[3] += 8;
+                                //Party Animal
+                                $scoreArray[4] += 3;
+                                //Crazy Cat
+                                $scoreArray[5] += 3;
+                                break;
+                        }
+                    }
+
+                    //Question 8, Weather For Dogs
+                    if (!empty($value['answers'][3]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][3]['choices'][0]['text']) {
+                            case 'Sunny spring day':
+                                //Wanderer
+                                $scoreArray[0] += 3;
+                                //Rough Nut
+                                $scoreArray[1] += 3;
+                                //Debonaire
+                                $scoreArray[2] += 9;
+                                //Buddy
+                                $scoreArray[3] += 8;
+                                //Cruiser
+                                $scoreArray[4] += 6;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Foggy, misty & eerie':
+                                //Wanderer
+                                $scoreArray[0] += 5;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 1;
+                                //Buddy
+                                $scoreArray[3] += 2;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 8;
+                                break;
+                            case 'Blustery & Windy':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 8;
+                                //Debonair
+                                $scoreArray[2] += 4;
+                                //Buddy
+                                $scoreArray[3] += 2;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Tropics':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 6;
+                                //Buddy
+                                $scoreArray[3] += 10;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Thunder & Lightening':
+                                //Wanderer
+                                $scoreArray[0] += 2;
+                                //Rough Nut
+                                $scoreArray[1] += 8;
+                                //Debonaire
+                                $scoreArray[2] += 1;
+                                //Buddy
+                                $scoreArray[3] += 0;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 6;
+                                break;
+                            case 'Pink-orange sunset':
+                                //Wanderer
+                                $scoreArray[0] += 5;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 8;
+                                //Buddy
+                                $scoreArray[3] += 6;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 2;
+                                break;
+                        }
+                    }
+
+                    //Question 8, Weather For Cats
+                    if (!empty($value['answers'][3]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][3]['choices'][0]['text']) {
+                            case 'Sunny spring day':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 10;
+                                //Timid Kitty
+                                $scoreArray[1] += 0;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 6;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Foggy, misty & eerie':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 10;
+                                //Fluffy Fun
+                                $scoreArray[2] += 0;
+                                //Steady Sam
+                                $scoreArray[3] += 0;
+                                //Party Animal
+                                $scoreArray[4] += 0;
+                                //Crazy Cat
+                                $scoreArray[5] += 9;
+                                break;
+                            case 'Blustery & Windy':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 6;
+                                //Fluffy Fun
+                                $scoreArray[2] += 0;
+                                //Steady Sam
+                                $scoreArray[3] += 0;
+                                //Party Animal
+                                $scoreArray[4] += 4;
+                                //Crazy Cat
+                                $scoreArray[5] += 9;
+                                break;
+                            case 'Tropics':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 5;
+                                //Timid Kitty
+                                $scoreArray[1] += 2;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Thunder & Lightening':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 7;
+                                //Fluffy Fun
+                                $scoreArray[2] += 0;
+                                //Steady Sam
+                                $scoreArray[3] += 0;
+                                //Party Animal
+                                $scoreArray[4] += 4;
+                                //Crazy Cat
+                                $scoreArray[5] += 10;
+                                break;
+                            case 'Pink-orange sunset':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 10;
+                                //Timid Kitty
+                                $scoreArray[1] += 1;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 5;
+                                //Party Animal
+                                $scoreArray[4] += 9;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                        }
+                    }
+
+                    //Question 7, Where to love For Dogs
+                    if (!empty($value['answers'][4]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][4]['choices'][0]['text']) {
+                            case 'Big house with security':
+                                //Wanderer
+                                $scoreArray[0] += 5;
+                                //Rough Nut
+                                $scoreArray[1] += 10;
+                                //Debonaire
+                                $scoreArray[2] += 4;
+                                //Buddy
+                                $scoreArray[3] += 0;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 5;
+                                break;
+                            case 'Island resort':
+                                //Wanderer
+                                $scoreArray[0] += 2;
+                                //Rough Nut
+                                $scoreArray[1] += 6;
+                                //Debonaire
+                                $scoreArray[2] += 8;
+                                //Buddy
+                                $scoreArray[3] += 6;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Shed':
+                                //Wanderer
+                                $scoreArray[0] += 8;
+                                //Rough Nut
+                                $scoreArray[1] += 3;
+                                //Debonair
+                                $scoreArray[2] += 0;
+                                //Buddy
+                                $scoreArray[3] += 5;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 7;
+                                break;
+                            case 'Modern apartment':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 8;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Wooden cabin in nature':
+                                //Wanderer
+                                $scoreArray[0] += 5;
+                                //Rough Nut
+                                $scoreArray[1] += 3;
+                                //Debonaire
+                                $scoreArray[2] += 7;
+                                //Buddy
+                                $scoreArray[3] += 10;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Motorhome':
+                                //Wanderer
+                                $scoreArray[0] += 6;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 5;
+                                //Buddy
+                                $scoreArray[3] += 5;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                        }
+                    }
+
+                    //Question 7, Home For Cats
+                    if (!empty($value['answers'][4]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][4]['choices'][0]['text']) {
+                            case 'Romantic hideaway':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 10;
+                                //Timid Kitty
+                                $scoreArray[1] += 5;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 8;
+                                //Crazy Cat
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Motorhome':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 5;
+                                //Timid Kitty
+                                $scoreArray[1] += 10;
+                                //Fluffy Fun
+                                $scoreArray[2] += 5;
+                                //Steady Sam
+                                $scoreArray[3] += 6;
+                                //Party Animal
+                                $scoreArray[4] += 3;
+                                //Crazy Cat
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Modern Apartment':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 5;
+                                //Timid Kitty
+                                $scoreArray[1] += 2;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Island Resort':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 7;
+                                //Timid Kitty
+                                $scoreArray[1] += 1;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Natural History Museum':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 1;
+                                //Timid Kitty
+                                $scoreArray[1] += 6;
+                                //Fluffy Fun
+                                $scoreArray[2] += 4;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 0;
+                                //Crazy Cat
+                                $scoreArray[5] += 10;
+                                break;
+                            case 'Castle with servants':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 6;
+                                //Timid Kitty
+                                $scoreArray[1] += 7;
+                                //Fluffy Fun
+                                $scoreArray[2] += 3;
+                                //Steady Sam
+                                $scoreArray[3] += 7;
+                                //Party Animal
+                                $scoreArray[4] += 5;
+                                //Crazy Cat
+                                $scoreArray[5] += 6;
+                                break;
+                        }
+                    }
+
+                    // TODO: Q6 Vehicle question here
+
+                    //Question 5, What costume For Dogs
+                    if (!empty($value['answers'][5]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][5]['choices'][0]['text']) {
+                            case 'Fluffy Rabbit':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 1;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 2;
+                                //Twinkle Toes
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Ninja':
+                                //Wanderer
+                                $scoreArray[0] += 10;
+                                //Rough Nut
+                                $scoreArray[1] += 10;
+                                //Debonaire
+                                $scoreArray[2] += 7;
+                                //Buddy
+                                $scoreArray[3] += 2;
+                                //Cruiser
+                                $scoreArray[4] += 2;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Superhero':
+                                //Wanderer
+                                $scoreArray[0] += 5;
+                                //Rough Nut
+                                $scoreArray[1] += 9;
+                                //Debonair
+                                $scoreArray[2] += 10;
+                                //Buddy
+                                $scoreArray[3] += 7;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Disco diva':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 6;
+                                //Buddy
+                                $scoreArray[3] += 2;
+                                //Cruiser
+                                $scoreArray[4] += 2;
+                                //Twinkle Toes
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Doctor or Nurse':
+                                //Wanderer
+                                $scoreArray[0] += 4;
+                                //Rough Nut
+                                $scoreArray[1] += 4;
+                                //Debonaire
+                                $scoreArray[2] += 7;
+                                //Buddy
+                                $scoreArray[3] += 5;
+                                //Cruiser
+                                $scoreArray[4] += 2;
+                                //Twinkle Toes
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Crazy Monster':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 8;
+                                //Debonaire
+                                $scoreArray[2] += 1;
+                                //Buddy
+                                $scoreArray[3] += 5;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 7;
+                                break;
+                        }
+                    }
+
+                    //Question 5, Costume For Cats
+                    if (!empty($value['answers'][5]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][5]['choices'][0]['text']) {
+                            case 'Fluffy Rabbit':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 10;
+                                //Timid Kitty
+                                $scoreArray[1] += 1;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 0;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Ninja':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 10;
+                                //Fluffy Fun
+                                $scoreArray[2] += 0;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 7;
+                                //Crazy Cat
+                                $scoreArray[5] += 8;
+                                break;
+                            case 'Doctor or Nurse':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 6;
+                                //Timid Kitty
+                                $scoreArray[1] += 2;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 6;
+                                //Party Animal
+                                $scoreArray[4] += 7;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Disco Diva':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 7;
+                                //Timid Kitty
+                                $scoreArray[1] += 2;
+                                //Fluffy Fun
+                                $scoreArray[2] += 5;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Groucho Marx':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 10;
+                                //Fluffy Fun
+                                $scoreArray[2] += 4;
+                                //Steady Sam
+                                $scoreArray[3] += 0;
+                                //Party Animal
+                                $scoreArray[4] += 5;
+                                //Crazy Cat
+                                $scoreArray[5] += 10;
+                                break;
+                            case 'Superhero':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 2;
+                                //Timid Kitty
+                                $scoreArray[1] += 2;
+                                //Fluffy Fun
+                                $scoreArray[2] += 0;
+                                //Steady Sam
+                                $scoreArray[3] += 6;
+                                //Party Animal
+                                $scoreArray[4] += 7;
+                                //Crazy Cat
+                                $scoreArray[5] += 5;
+                                break;
+                        }
+                    }
+
+                    //Question 4, What Movie For Dogs
+                    if (!empty($value['answers'][6]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][6]['choices'][0]['text']) {
+                            case 'Adventure':
+                                //Wanderer
+                                $scoreArray[0] += 7;
+                                //Rough Nut
+                                $scoreArray[1] += 10;
+                                //Debonaire
+                                $scoreArray[2] += 6;
+                                //Buddy
+                                $scoreArray[3] += 5;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Chick flick':
+                                //Wanderer
+                                $scoreArray[0] += 1;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 9;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Documentary':
+                                //Wanderer
+                                $scoreArray[0] += 10;
+                                //Rough Nut
+                                $scoreArray[1] += 5;
+                                //Debonair
+                                $scoreArray[2] += 4;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 7;
+                                break;
+                            case 'Horror':
+                                //Wanderer
+                                $scoreArray[0] += 7;
+                                //Rough Nut
+                                $scoreArray[1] += 10;
+                                //Debonaire
+                                $scoreArray[2] += 1;
+                                //Buddy
+                                $scoreArray[3] += 0;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 5;
+                                break;
+                            case 'Sci Fi':
+                                //Wanderer
+                                $scoreArray[0] += 3;
+                                //Rough Nut
+                                $scoreArray[1] += 5;
+                                //Debonaire
+                                $scoreArray[2] += 6;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 6;
+                                //Twinkle Toes
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Comedy':
+                                //Wanderer
+                                $scoreArray[0] += 2;
+                                //Rough Nut
+                                $scoreArray[1] += 1;
+                                //Debonaire
+                                $scoreArray[2] += 5;
+                                //Buddy
+                                $scoreArray[3] += 10;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 1;
+                                break;
+                        }
+                    }
+
+                    //Question 4, Movie For Cats
+                    if (!empty($value['answers'][6]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][6]['choices'][0]['text']) {
+                            case 'Romance':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 10;
+                                //Timid Kitty
+                                $scoreArray[1] += 3;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 8;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Horror':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 7;
+                                //Fluffy Fun
+                                $scoreArray[2] += 0;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 4;
+                                //Crazy Cat
+                                $scoreArray[5] += 10;
+                                break;
+                            case 'Action':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 4;
+                                //Timid Kitty
+                                $scoreArray[1] += 6;
+                                //Fluffy Fun
+                                $scoreArray[2] += 5;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 6;
+                                //Crazy Cat
+                                $scoreArray[5] += 8;
+                                break;
+                            case 'Documentary':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 5;
+                                //Timid Kitty
+                                $scoreArray[1] += 6;
+                                //Fluffy Fun
+                                $scoreArray[2] += 4;
+                                //Steady Sam
+                                $scoreArray[3] += 6;
+                                //Party Animal
+                                $scoreArray[4] += 4;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Sci-Fi':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 7;
+                                //Fluffy Fun
+                                $scoreArray[2] += 2;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 5;
+                                //Crazy Cat
+                                $scoreArray[5] += 7;
+                                break;
+                            case 'Comedy':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 8;
+                                //Timid Kitty
+                                $scoreArray[1] += 1;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 7;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 4;
+                                break;
+                        }
+                    }
+
+                    //Question 3, What Meal For Dogs. TODO: Missing!
+
+
+                    //Question 3, Meal For Cats
+                    if (!empty($value['answers'][7]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][7]['choices'][0]['text']) {
+                            case 'Candlelit dinner':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 10;
+                                //Timid Kitty
+                                $scoreArray[1] += 1;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 7;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Healthy treats':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 7;
+                                //Timid Kitty
+                                $scoreArray[1] += 3;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 5;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Gourmet Picnic Hamper':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 8;
+                                //Timid Kitty
+                                $scoreArray[1] += 2;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 8;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Finger food, fairy bread':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 8;
+                                //Timid Kitty
+                                $scoreArray[1] += 1;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Candy coated birds & mice':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 8;
+                                //Timid Kitty
+                                $scoreArray[1] += 4;
+                                //Fluffy Fun
+                                $scoreArray[2] += 4;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 4;
+                                //Crazy Cat
+                                $scoreArray[5] += 10;
+                                break;
+                            case 'Baked beans on toast (if youre lucky)':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 3;
+                                //Timid Kitty
+                                $scoreArray[1] += 6;
+                                //Fluffy Fun
+                                $scoreArray[2] += 2;
+                                //Steady Sam
+                                $scoreArray[3] += 10;
+                                //Party Animal
+                                $scoreArray[4] += 2;
+                                //Crazy Cat
+                                $scoreArray[5] += 3;
+                                break;
+                        }
+                    }
+
+                    //Question 2, What Recreation For Dogs
+                    if (!empty($value['answers'][8]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][8]['choices'][0]['text']) {
+                            case 'Fly fishing':
+                                //Wanderer
+                                $scoreArray[0] += 10;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 6;
+                                //Buddy
+                                $scoreArray[3] += 0;
+                                //Cruiser
+                                $scoreArray[4] += 5;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Modern Dance':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 5;
+                                //Debonaire
+                                $scoreArray[2] += 2;
+                                //Buddy
+                                $scoreArray[3] += 5;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Boxing':
+                                //Wanderer
+                                $scoreArray[0] += 4;
+                                //Rough Nut
+                                $scoreArray[1] += 10;
+                                //Debonair
+                                $scoreArray[2] += 7;
+                                //Buddy
+                                $scoreArray[3] += 0;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Tennis':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 6;
+                                //Buddy
+                                $scoreArray[3] += 10;
+                                //Cruiser
+                                $scoreArray[4] += 5;
+                                //Twinkle Toes
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Pole vaulting':
+                                //Wanderer
+                                $scoreArray[0] += 5;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 5;
+                                //Buddy
+                                $scoreArray[3] += 0;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Chess':
+                                //Wanderer
+                                $scoreArray[0] += 6;
+                                //Rough Nut
+                                $scoreArray[1] += 3;
+                                //Debonaire
+                                $scoreArray[2] += 7;
+                                //Buddy
+                                $scoreArray[3] += 4;
+                                //Cruiser
+                                $scoreArray[4] += 5;
+                                //Twinkle Toes
+                                $scoreArray[5] += 7;
+                                break;
+                        }
+                    }
+
+                    //Question 2, Recreation For Cats
+                    if (!empty($value['answers'][8]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][8]['choices'][0]['text']) {
+                            case 'Ballroom dancing':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 8;
+                                //Timid Kitty
+                                $scoreArray[1] += 2;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 9;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Wide-mouth clown Carnival games':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 4;
+                                //Timid Kitty
+                                $scoreArray[1] += 6;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 5;
+                                //Crazy Cat
+                                $scoreArray[5] += 10;
+                                break;
+                            case 'Pole vaulting':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 3;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 8;
+                                //Crazy Cat
+                                $scoreArray[5] += 7;
+                                break;
+                            case 'Hide & Seek':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 6;
+                                //Timid Kitty
+                                $scoreArray[1] += 6;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 7;
+                                //Party Animal
+                                $scoreArray[4] += 8;
+                                //Crazy Cat
+                                $scoreArray[5] += 8;
+                                break;
+                            case 'Twister':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 6;
+                                //Timid Kitty
+                                $scoreArray[1] += 4;
+                                //Fluffy Fun
+                                $scoreArray[2] += 8;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Poker':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 4;
+                                //Timid Kitty
+                                $scoreArray[1] += 9;
+                                //Fluffy Fun
+                                $scoreArray[2] += 6;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 5;
+                                //Crazy Cat
+                                $scoreArray[5] += 5;
+                                break;
+                        }
+                    }
+
+                    //Question 1, What Work For Dogs
+                    if (!empty($value['answers'][9]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][9]['choices'][0]['text']) {
+                            case 'Trades person':
+                                //Wanderer
+                                $scoreArray[0] += 7;
+                                //Rough Nut
+                                $scoreArray[1] += 10;
+                                //Debonaire
+                                $scoreArray[2] += 2;
+                                //Buddy
+                                $scoreArray[3] += 2;
+                                //Cruiser
+                                $scoreArray[4] += 2;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Detective or Spy':
+                                //Wanderer
+                                $scoreArray[0] += 5;
+                                //Rough Nut
+                                $scoreArray[1] += 2;
+                                //Debonaire
+                                $scoreArray[2] += 10;
+                                //Buddy
+                                $scoreArray[3] += 2;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Personal Assistant':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonair
+                                $scoreArray[2] += 8;
+                                //Buddy
+                                $scoreArray[3] += 10;
+                                //Cruiser
+                                $scoreArray[4] += 2;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Door bitch':
+                                //Wanderer
+                                $scoreArray[0] += 10;
+                                //Rough Nut
+                                $scoreArray[1] += 8;
+                                //Debonaire
+                                $scoreArray[2] += 7;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Mad Scientist':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 0;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 6;
+                                break;
+                            case 'Florist':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 5;
+                                //Buddy
+                                $scoreArray[3] += 4;
+                                //Cruiser
+                                $scoreArray[4] += 1;
+                                //Twinkle Toes
+                                $scoreArray[5] += 4;
+                                break;
+                        }
+                    }
+
+                    //Question 1, Work For Cats
+                    if (!empty($value['answers'][9]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][9]['choices'][0]['text']) {
+                            case 'Florist':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 10;
+                                //Timid Kitty
+                                $scoreArray[1] += 3;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 6;
+                                //Crazy Cat
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Detective or Spy':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 10;
+                                //Fluffy Fun
+                                $scoreArray[2] += 3;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 3;
+                                //Crazy Cat
+                                $scoreArray[5] += 8;
+                                break;
+                            case 'Personal Assistant':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 8;
+                                //Timid Kitty
+                                $scoreArray[1] += 2;
+                                //Fluffy Fun
+                                $scoreArray[2] += 10;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 6;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Tradie':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 1;
+                                //Fluffy Fun
+                                $scoreArray[2] += 3;
+                                //Steady Sam
+                                $scoreArray[3] += 8;
+                                //Party Animal
+                                $scoreArray[4] += 0;
+                                //Crazy Cat
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Door bitch':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 4;
+                                //Timid Kitty
+                                $scoreArray[1] += 6;
+                                //Fluffy Fun
+                                $scoreArray[2] += 2;
+                                //Steady Sam
+                                $scoreArray[3] += 0;
+                                //Party Animal
+                                $scoreArray[4] += 8;
+                                //Crazy Cat
+                                $scoreArray[5] += 5;
+                                break;
+                            case 'Mad Scientist':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 0;
+                                //Timid Kitty
+                                $scoreArray[1] += 9;
+                                //Fluffy Fun
+                                $scoreArray[2] += 0;
+                                //Steady Sam
+                                $scoreArray[3] += 0;
+                                //Party Animal
+                                $scoreArray[4] += 3;
+                                //Crazy Cat
+                                $scoreArray[5] += 10;
+                                break;
+                        }
+                    }
+
+                    foreach ($characterArray as $key => $value) {
+                        // create new field collection entity for each value
+                        $example_entity = NULL;
+                        $example_entity = entity_create('field_collection_item', array('field_name' => 'field_pet_characters'));
+                        // Attach the entity to the node
+                        $example_entity->setHostEntity('node', $srNode);
+                        // Wrap it
+                        $wrapper = entity_metadata_wrapper('field_collection_item', $example_entity);
+                        // Set the currrent value in the loop
+                        dpm($value);
+                        $wrapper->field_linked_pet_character->set($value);
+                        dpm($scoreArray[$key]);
+                        $wrapper->field_linked_character_score->set($scoreArray[$key]);
+                        $wrapper->save();
+                    }
+
+                    $srNode = node_submit($srNode); // Prepare node for a submit
+                    node_save($srNode); // After this call we'll get a nid
+                    watchdog('jpgf', 'New Survey Response created with ID %nid', array('nid' => $value['id']), WATCHDOG_NOTICE);
+
+                    $returnData[] = $value; // This can probably go?
+
+                    $params = array(
+                        'petName' => $pNode->title,
+                        'petType' => 'tbc',
+                        'image' => 'tbc'
+                    );
+
+                    $message = drupal_mail('jpgf', 'srprocesscomplete', $value['answers'][0]['form_fields'][3]['text'], LANGUAGE_NONE, $params);
+                    dpm($message);
+                } else {
+                    watchdog('jpgf', 'Node based on this Survey Response has already been created', NULL, WATCHDOG_NOTICE);
+                }
             }
-
-            $srNode = node_submit($srNode); // Prepare node for a submit
-            node_save($srNode); // After this call we'll get a nid
-            watchdog('jpgf', 'New Survey Response created with ID %nid', array('nid' => $value['id']), WATCHDOG_NOTICE);
-
-            $returnData[] = $value; // This can probably go?
-            //drupal_mail("example_module", "outgoing_message" ...)
-
-            $params = array(
-              'petName' => $pNode->title,
-              'petType' => 'tbc',
-              'image' => 'tbc'
-              );
-
-            $message = drupal_mail('jpgf', 'srprocesscomplete', $value['answers'][0]['form_fields'][3]['text'],LANGUAGE_NONE, $params);
-            dpm($message);
-          } else {
-            watchdog('jpgf', 'Node based on this Survey Response has already been created',NULL, WATCHDOG_NOTICE);
-          }
         }
-      }
-      //This can go after testing?
-      return $returnData;
+        //This can go after testing?
+        return $returnData;
     }
-  }
+}
 
 /**
  * Implements hook_page_build().
  *
  * Add JavaScript and CSS code to every page.
  */
-function jpgf_page_build() {
+function jpgf_page_build()
+{
 
-  drupal_add_js(drupal_get_path('module', 'jpgf') . '/js/jpgf.js');
-  drupal_add_css(drupal_get_path('module', 'jpgf') . '/css/jpgf.css');
+    drupal_add_js(drupal_get_path('module', 'jpgf') . '/js/jpgf.js');
+    drupal_add_css(drupal_get_path('module', 'jpgf') . '/css/jpgf.css');
 
 }
 
-function jpgf_cron() {
-  process_json();
+function jpgf_cron()
+{
+    process_json();
 }
