@@ -1702,7 +1702,7 @@ function process_json()
                         }
                     }
 
-                    foreach ($characterArray as $key => $value) {
+                    foreach ($characterArray as $key => $linkedCharacter) {
                         // create new field collection entity for each value
                         $example_entity = NULL;
                         $example_entity = entity_create('field_collection_item', array('field_name' => 'field_pet_characters'));
@@ -1711,20 +1711,17 @@ function process_json()
                         // Wrap it
                         $wrapper = entity_metadata_wrapper('field_collection_item', $example_entity);
                         // Set the currrent value in the loop
-                        $wrapper->field_linked_pet_character->set($value);
+                        $wrapper->field_linked_pet_character->set($linkedCharacter);
                         $wrapper->field_linked_character_score->set($scoreArray[$key]);
                         $wrapper->save();
                     }
 
                     // What are the top two?
                     asort($scoreArray);
-                    dpm($scoreArray);
                     $last = end($scoreArray);
-                    dpm(key($scoreArray));
                     $pNode->field_pet_character[LANGUAGE_NONE][0]['target_id'] = $characterArray[key($scoreArray)];
 
                     $secondLast = prev($scoreArray);
-                    dpm(key($scoreArray));
                     // Save the references
                     $pNode->field_pet_character[LANGUAGE_NONE][1]['target_id'] = $characterArray[key($scoreArray)];
 
@@ -1741,16 +1738,23 @@ function process_json()
                     $srNode = node_submit($srNode); // Prepare node for a submit
                     node_save($srNode); // After this call we'll get a nid
                     watchdog('jpgf', 'New Survey Response created with ID %nid', array('nid' => $value['id']), WATCHDOG_NOTICE);
+                    $petCharacters = entity_load('node', array_values($pNode->field_pet_character[LANGUAGE_NONE]));
+                    $petTypes = array();
+                    $petDescriptions = array();
+                    foreach ($petCharacters as $key => $character) {
+                        $petTypes[] = $character->title;
+                        $petDescriptions[] = $character->body[LANGUAGE_NONE][0]['safe_value'];
+                    }
 
                     $returnData[] = $value; // This can probably go?
 
                     $params = array(
                         'petName' => $pNode->title,
-                        'petType' => 'tbc',
+                        'petType' => $petTypes,
+                        'petDescription' => $petDescriptions,
                         'image' => 'tbc'
                     );
-
-                    $message = drupal_mail('jpgf', 'srprocesscomplete', $value['answers'][0]['form_fields'][3]['text'], LANGUAGE_NONE, $params);
+                    $message = drupal_mail('jpgf', 'srprocesscomplete', $value['answers'][0]['form_fields'][4]['text'], LANGUAGE_NONE, $params);
                     dpm($message);
                 } else {
                     watchdog('jpgf', 'Node based on this Survey Response has already been created', NULL, WATCHDOG_NOTICE);
