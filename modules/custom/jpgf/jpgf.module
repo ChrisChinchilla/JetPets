@@ -49,11 +49,11 @@ function jpgf_help($path, $arg)
  */
 function jpgf_page()
 {
-//This can all go after testing
+    //This can all go after testing
     $output = process_json();
+    variable_set('last_fetch', date(DATE_ATOM));
     dpm($output);
     return $output;
-
 }
 
 function process_json()
@@ -65,15 +65,13 @@ function process_json()
         )
     ));
 
-    $response = file_get_contents('https://api.getfeedback.com/surveys/29880/responses', false, $context);
+    $response = file_get_contents('https://api.getfeedback.com/surveys/29880/responses?since=' . variable_get('last_fetch'), false, $context);
 
-// Check for errors
+    // Check for errors
     if ($response === FALSE) {
         // die(curl_error($ch));
     } else {
-
-// Decode the response
-
+        // Decode the response
         $responseData = json_decode($response, TRUE);
         dpm($responseData);
         $returnData = array();
@@ -92,6 +90,8 @@ function process_json()
                     ->addMetaData('account', user_load(1)); // Run the query as user 1.
 
                 $result = $query->execute();
+
+                $petSex = '';
 
                 if (!isset($result['node'])) {
                     // Create the Contact
@@ -150,6 +150,7 @@ function process_json()
                         ->entityCondition('bundle', 'pet_character')
                         ->propertyCondition('status', 1)
                         ->fieldCondition('field_pet_type', 'tid', key($petType))
+                        ->fieldCondition('field_pet_sex', 'tid', key($petSex))
                         ->range(0, 10);
                     $result = $query->execute();
                     $nids = array();
@@ -1710,7 +1711,7 @@ function process_json()
                         $example_entity->setHostEntity('node', $srNode);
                         // Wrap it
                         $wrapper = entity_metadata_wrapper('field_collection_item', $example_entity);
-                        // Set the currrent value in the loop
+                        // Set the current value in the loop
                         $wrapper->field_linked_pet_character->set($linkedCharacter);
                         $wrapper->field_linked_character_score->set($scoreArray[$key]);
                         $wrapper->save();
@@ -1719,11 +1720,11 @@ function process_json()
                     // What are the top two?
                     asort($scoreArray);
                     $last = end($scoreArray);
-                    $pNode->field_pet_character[LANGUAGE_NONE][0]['target_id'] = $characterArray[key($scoreArray)];
+                    $pNode->field_primary_pet_character[LANGUAGE_NONE][0]['target_id'] = $characterArray[key($scoreArray)];
 
                     $secondLast = prev($scoreArray);
                     // Save the references
-                    $pNode->field_pet_character[LANGUAGE_NONE][1]['target_id'] = $characterArray[key($scoreArray)];
+                    $pNode->field_secondary_pet_character[LANGUAGE_NONE][1]['target_id'] = $characterArray[key($scoreArray)];
 
                     //Save pet
                     $pNode = node_submit($pNode); // Prepare node for a submit
@@ -1738,21 +1739,26 @@ function process_json()
                     $srNode = node_submit($srNode); // Prepare node for a submit
                     node_save($srNode); // After this call we'll get a nid
                     watchdog('jpgf', 'New Survey Response created with ID %nid', array('nid' => $value['id']), WATCHDOG_NOTICE);
-                    $petCharacters = entity_load('node', array_values($pNode->field_pet_character[LANGUAGE_NONE]));
+                    $petCharacters = array_merge(entity_load('node', array_values($pNode->field_primary_pet_character[LANGUAGE_NONE])), entity_load('node', array_values($pNode->field_secondary_pet_character[LANGUAGE_NONE])));
+                    dpm($petCharacters);
                     $petTypes = array();
                     $petDescriptions = array();
+                    $petImages = array();
                     foreach ($petCharacters as $key => $character) {
                         $petTypes[] = $character->title;
                         $petDescriptions[] = $character->body[LANGUAGE_NONE][0]['safe_value'];
+                        $petImages[] = $character->field_pet_image[LANGUAGE_NONE][0]['uri'];
                     }
-
                     $returnData[] = $value; // This can probably go?
 
                     $params = array(
+                        'name' => $cNode->title,
+                        'url' => url('node/'. $srNode->nid, array('absolute' => true, 'alias' => false )),
                         'petName' => $pNode->title,
                         'petType' => $petTypes,
                         'petDescription' => $petDescriptions,
-                        'image' => 'tbc'
+                        'petImage' => $petImages,
+                        'pdf' => url('printpdf/' . $srNode->nid, array('absolute' => true, 'alias' => false ))
                     );
                     $message = drupal_mail('jpgf', 'srprocesscomplete', $value['answers'][0]['form_fields'][4]['text'], LANGUAGE_NONE, $params);
                     dpm($message);
