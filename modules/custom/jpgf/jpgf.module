@@ -123,7 +123,8 @@ function process_json()
                     //Could the below be better, using taxonomy to allow for future expansion, but will it?
                     $petSex = taxonomy_get_term_by_name($value['answers'][0]['form_fields'][5]['text'], 'pet_sex');
                     if (!empty($petSex)) $pNode->field_pet_sex[LANGUAGE_NONE][0]['tid'] = key($petSex);
-                    if ($value['answers'][10]['choices'][0]['text'] == 'Cat') $petType = taxonomy_get_term_by_name($value['answers'][10]['choices'][0]['text'], 'pet_type');
+                    // TODO: This was to get around field inconsistencies, is it still needed?
+                    if ($value['answers'][11]['choices'][0]['text'] == 'Cat') $petType = taxonomy_get_term_by_name($value['answers'][11]['choices'][0]['text'], 'pet_type');
                     if ($value['answers'][11]['choices'][0]['text'] == 'Dog') $petType = taxonomy_get_term_by_name($value['answers'][11]['choices'][0]['text'], 'pet_type');
                     // TODO: The above will cause warnings at the moment
                     if (!empty($petType)) $pNode->field_pet_type[LANGUAGE_NONE][0]['tid'] = key($petType);
@@ -888,7 +889,185 @@ function process_json()
                         }
                     }
 
-                    // TODO: Q6 Vehicle question here
+                    //Question 6, Vehicle For Dogs
+                    if (!empty($value['answers'][5]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][5]['choices'][0]['text']) {
+                            case 'VW Convertable':
+                                //Wanderer
+                                $scoreArray[0] += 2;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 7;
+                                //Buddy
+                                $scoreArray[3] += 4;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 5;
+                                break;
+                            case 'Harley Davidson':
+                                //Wanderer
+                                $scoreArray[0] += 3;
+                                //Rough Nut
+                                $scoreArray[1] += 9;
+                                //Debonaire
+                                $scoreArray[2] += 6;
+                                //Buddy
+                                $scoreArray[3] += 2;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Smart Car':
+                                //Wanderer
+                                $scoreArray[0] += 5;
+                                //Rough Nut
+                                $scoreArray[1] += 2;
+                                //Debonair
+                                $scoreArray[2] += 0;
+                                //Buddy
+                                $scoreArray[3] += 5;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Limosine':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 2;
+                                //Debonaire
+                                $scoreArray[2] += 9;
+                                //Buddy
+                                $scoreArray[3] += 3;
+                                //Cruiser
+                                $scoreArray[4] += 0;
+                                //Twinkle Toes
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Icecream Van':
+                                //Wanderer
+                                $scoreArray[0] += 2;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 1;
+                                //Buddy
+                                $scoreArray[3] += 7;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 6;
+                                break;
+                            case 'Vintage Cadilac':
+                                //Wanderer
+                                $scoreArray[0] += 2;
+                                //Rough Nut
+                                $scoreArray[1] += 7;
+                                //Debonaire
+                                $scoreArray[2] += 6;
+                                //Buddy
+                                $scoreArray[3] += 4;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 5;
+                                break;
+                        }
+                    }
+
+                    //Question 6, Vehicle For Cats
+                    if (!empty($value['answers'][5]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][5]['choices'][0]['text']) {
+                            case 'VW Convertible':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 10;
+                                //Timid Kitty
+                                $scoreArray[1] += 0;
+                                //Fluffy Fun
+                                $scoreArray[2] += 5;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 4;
+                                //Crazy Cat
+                                $scoreArray[5] += 0;
+                                break;
+                            case 'Harley Davidson Motorcycle with Sidecar':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 2;
+                                //Timid Kitty
+                                $scoreArray[1] += 0;
+                                //Fluffy Fun
+                                $scoreArray[2] += 3;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 6;
+                                //Crazy Cat
+                                $scoreArray[5] += 6;
+                                break;
+                            case 'Volvo Station Wagon':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 2;
+                                //Timid Kitty
+                                $scoreArray[1] += 9;
+                                //Fluffy Fun
+                                $scoreArray[2] += 7;
+                                //Steady Sam
+                                $scoreArray[3] += 7;
+                                //Party Animal
+                                $scoreArray[4] += 0;
+                                //Crazy Cat
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Limo':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 5;
+                                //Timid Kitty
+                                $scoreArray[1] += 0;
+                                //Fluffy Fun
+                                $scoreArray[2] += 3;
+                                //Steady Sam
+                                $scoreArray[3] += 2;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Icecream Van':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 4;
+                                //Timid Kitty
+                                $scoreArray[1] += 0;
+                                //Fluffy Fun
+                                $scoreArray[2] += 3;
+                                //Steady Sam
+                                $scoreArray[3] += 4;
+                                //Party Animal
+                                $scoreArray[4] += 6;
+                                //Crazy Cat
+                                $scoreArray[5] += 10;
+                                break;
+                            case 'Dune Buggy':
+                                //Cuddly Cutie
+                                $scoreArray[0] += 2;
+                                //Timid Kitty
+                                $scoreArray[1] += 0;
+                                //Fluffy Fun
+                                $scoreArray[2] += 3;
+                                //Steady Sam
+                                $scoreArray[3] += 3;
+                                //Party Animal
+                                $scoreArray[4] += 10;
+                                //Crazy Cat
+                                $scoreArray[5] += 4;
+                                break;
+                        }
+                    }
 
                     //Question 5, What costume For Dogs
                     if (!empty($value['answers'][6]['choices'][0]['text']) && (key($petType) == 3)) {
@@ -981,8 +1160,8 @@ function process_json()
                     }
 
                     //Question 5, Costume For Cats
-                    if (!empty($value['answers'][5]['choices'][0]['text']) && (key($petType) == 4)) {
-                        switch ($value['answers'][5]['choices'][0]['text']) {
+                    if (!empty($value['answers'][6]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][6]['choices'][0]['text']) {
                             case 'Fluffy Rabbit':
                                 //Cuddly Cutie
                                 $scoreArray[0] += 10;
@@ -1161,8 +1340,8 @@ function process_json()
                     }
 
                     //Question 4, Movie For Cats
-                    if (!empty($value['answers'][6]['choices'][0]['text']) && (key($petType) == 4)) {
-                        switch ($value['answers'][6]['choices'][0]['text']) {
+                    if (!empty($value['answers'][7]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][7]['choices'][0]['text']) {
                             case 'Romance':
                                 //Cuddly Cutie
                                 $scoreArray[0] += 10;
@@ -1250,12 +1429,99 @@ function process_json()
                         }
                     }
 
-                    //Question 3, What Meal For Dogs. TODO: Missing!
-
+                    //Question 3, What Meal For Dogs.
+                    if (!empty($value['answers'][8]['choices'][0]['text']) && (key($petType) == 3)) {
+                        switch ($value['answers'][8]['choices'][0]['text']) {
+                            case 'Fish & Chips':
+                                //Wanderer
+                                $scoreArray[0] += 10;
+                                //Rough Nut
+                                $scoreArray[1] += 8;
+                                //Debonaire
+                                $scoreArray[2] += 2;
+                                //Buddy
+                                $scoreArray[3] += 7;
+                                //Cruiser
+                                $scoreArray[4] += 5;
+                                //Twinkle Toes
+                                $scoreArray[5] += 4;
+                                break;
+                            case 'Healthy treats':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 2;
+                                //Buddy
+                                $scoreArray[3] += 4;
+                                //Cruiser
+                                $scoreArray[4] += 5;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Gourmet picnic hamper':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonair
+                                $scoreArray[2] += 9;
+                                //Buddy
+                                $scoreArray[3] += 7;
+                                //Cruiser
+                                $scoreArray[4] += 4;
+                                //Twinkle Toes
+                                $scoreArray[5] += 2;
+                                break;
+                            case 'Sunday Roast':
+                                //Wanderer
+                                $scoreArray[0] += 6;
+                                //Rough Nut
+                                $scoreArray[1] += 5;
+                                //Debonaire
+                                $scoreArray[2] += 5;
+                                //Buddy
+                                $scoreArray[3] += 4;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Candlelit Dinner':
+                                //Wanderer
+                                $scoreArray[0] += 0;
+                                //Rough Nut
+                                $scoreArray[1] += 2;
+                                //Debonaire
+                                $scoreArray[2] += 10;
+                                //Buddy
+                                $scoreArray[3] += 7;
+                                //Cruiser
+                                $scoreArray[4] += 3;
+                                //Twinkle Toes
+                                $scoreArray[5] += 3;
+                                break;
+                            case 'Finger food':
+                                //Wanderer
+                                $scoreArray[0] += 3;
+                                //Rough Nut
+                                $scoreArray[1] += 0;
+                                //Debonaire
+                                $scoreArray[2] += 1;
+                                //Buddy
+                                $scoreArray[3] += 6;
+                                //Cruiser
+                                $scoreArray[4] += 5;
+                                //Twinkle Toes
+                                $scoreArray[5] += 6;
+                                break;
+                        }
+                    }
 
                     //Question 3, Meal For Cats
-                    if (!empty($value['answers'][7]['choices'][0]['text']) && (key($petType) == 4)) {
-                        switch ($value['answers'][7]['choices'][0]['text']) {
+                    if (!empty($value['answers'][8]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][8]['choices'][0]['text']) {
                             case 'Candlelit dinner':
                                 //Cuddly Cutie
                                 $scoreArray[0] += 10;
@@ -1434,8 +1700,8 @@ function process_json()
                     }
 
                     //Question 2, Recreation For Cats
-                    if (!empty($value['answers'][8]['choices'][0]['text']) && (key($petType) == 4)) {
-                        switch ($value['answers'][8]['choices'][0]['text']) {
+                    if (!empty($value['answers'][9]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][9]['choices'][0]['text']) {
                             case 'Ballroom dancing':
                                 //Cuddly Cutie
                                 $scoreArray[0] += 8;
@@ -1614,8 +1880,8 @@ function process_json()
                     }
 
                     //Question 1, Work For Cats
-                    if (!empty($value['answers'][9]['choices'][0]['text']) && (key($petType) == 4)) {
-                        switch ($value['answers'][9]['choices'][0]['text']) {
+                    if (!empty($value['answers'][10]['choices'][0]['text']) && (key($petType) == 4)) {
+                        switch ($value['answers'][10]['choices'][0]['text']) {
                             case 'Florist':
                                 //Cuddly Cutie
                                 $scoreArray[0] += 10;
@@ -1753,12 +2019,12 @@ function process_json()
 
                     $params = array(
                         'name' => $cNode->title,
-                        'url' => url('node/'. $srNode->nid, array('absolute' => true, 'alias' => false )),
+                        'url' => url('node/' . $srNode->nid, array('absolute' => true, 'alias' => false)),
                         'petName' => $pNode->title,
                         'petType' => $petTypes,
                         'petDescription' => $petDescriptions,
                         'petImage' => $petImages,
-                        'pdf' => url('printpdf/' . $srNode->nid, array('absolute' => true, 'alias' => false ))
+                        'pdf' => url('printpdf/' . $srNode->nid, array('absolute' => true, 'alias' => false))
                     );
                     $message = drupal_mail('jpgf', 'srprocesscomplete', $value['answers'][0]['form_fields'][4]['text'], LANGUAGE_NONE, $params);
                     dpm($message);
