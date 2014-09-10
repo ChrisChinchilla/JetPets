@@ -50,7 +50,7 @@ function jpgf_page()
     //This can all go after testing
     $output = process_json();
     variable_set('last_fetch', date(DATE_ATOM));
-    dpm($output);
+    //dpm($output);
     return $output;
 }
 
@@ -71,7 +71,7 @@ function process_json()
     } else {
         // Decode the response
         $responseData = json_decode($response, TRUE);
-        dpm($responseData);
+        //dpm($responseData);
         $returnData = array();
         foreach ($responseData['active_models'] as $value) {
             if ((!empty($value['answers'])) && ($value['status'] == 'completed')) {
@@ -2012,7 +2012,6 @@ function process_json()
                     node_save($srNode); // After this call we'll get a nid
                     watchdog('jpgf', 'New Survey Response created with ID %nid', array('nid' => $value['id']), WATCHDOG_NOTICE);
                     $petCharacters = array_merge(entity_load('node', array_values($pNode->field_primary_pet_character[LANGUAGE_NONE])), entity_load('node', array_values($pNode->field_secondary_pet_character[LANGUAGE_NONE])));
-                    dpm($petCharacters);
                     $petTypes = array();
                     $petDescriptions = array();
                     $petImages = array();
@@ -2030,7 +2029,8 @@ function process_json()
                         'petType' => $petTypes,
                         'petDescription' => $petDescriptions,
                         'petImage' => $petImages,
-                        'pdf' => url('printpdf/' . $srNode->nid, array('absolute' => true, 'alias' => false))
+                        'pdf' => url('printpdf/' . $srNode->nid, array('absolute' => true, 'alias' => false)),
+                        'shareURL' => url(drupal_get_path_alias('node/' . $pNode->field_primary_pet_character[LANGUAGE_NONE][0]['target_id']), array('absolute' => true, 'alias' => false))
                     );
                     $message = drupal_mail('jpgf', 'srprocesscomplete', $value['answers'][0]['form_fields'][4]['text'], LANGUAGE_NONE, $params);
                     dpm($message);
@@ -2051,7 +2051,6 @@ function process_json()
  */
 function jpgf_page_build()
 {
-    drupal_add_js(drupal_get_path('module', 'jpgf') . '/js/jpgf.js');
     drupal_add_css(drupal_get_path('module', 'jpgf') . '/css/jpgf.css');
 }
 
