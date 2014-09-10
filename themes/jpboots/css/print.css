@@ -7,8 +7,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: left top;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 }
 
 .node-pet {
@@ -16,8 +16,9 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: left top;
-    width:21cm;
-    height:29.7cm;
+    width: 21cm;
+    height: 29.7cm;
+    padding:30px;
 }
 
 .field-name-field-primary-pet-character .field-name-body,
@@ -40,16 +41,42 @@
     display: none;
 }
 
-.field-name-field-pet-cert-image img
-{
+.field-name-field-primary-score {
+    background-color: #c8138a;
+    height:15px;
+    float:left;
+}
+
+.field-name-field-secondary-score {
+    background-color: #fbea0d;
+    height:15px;
+    float:right;
+}
+
+.field-name-field-pet-cert-image img {
     display: block;
     margin-left: auto;
     margin-right: auto
 }
 
+.field-name-field-secondary-pet-character {
+    padding: 10px;
+    background: rgba(118, 139, 133, 0.5);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color:#ffffff;
+    font-size: 11px;
+}
+
+.field-name-field-secondary-pet-character a {
+    color: #ffffff;
+}
+
 .field-name-field-primary-pet-character .field-name-body {
-font-size: 15px;
-    margin: 30px;
+    font-size: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 th {
@@ -76,14 +103,6 @@ td {
 
 #main {
     margin: 1em;
-}
-
-a:link {
-    color: #000;
-}
-
-a:visited {
-    color: #000;
 }
 
 a:hover {
