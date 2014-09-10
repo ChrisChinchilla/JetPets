@@ -3,7 +3,7 @@
 }
 
 .print_pdf body {
-    background-image: url("../images/pdf_bg.jpg");
+    background-image: url("../images/pdf_bg.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: left top;
@@ -11,10 +11,45 @@
     height:100%;
 }
 
-.print_pdf div#wrapper {
+.node-pet {
+    background-image: url("../images/pdf_bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left top;
+    width:21cm;
+    height:29.7cm;
 }
 
-.print_pdf div.wrapper img {
+.field-name-field-primary-pet-character .field-name-body,
+.field-name-field-pet .node-pet h2 {
+    text-align: center;
+}
+
+.field-name-field-pet .node-pet h2::before {
+    content: "Congratulations ";
+    color: #336666;
+}
+
+.field-name-field-pet .node-pet h2::after {
+    content: " is a";
+    color: #336666;
+}
+
+/* Don't like the below */
+.field-name-field-pet .node-pet .node-pet-character h2 {
+    display: none;
+}
+
+.field-name-field-pet-cert-image img
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.field-name-field-primary-pet-character .field-name-body {
+font-size: 15px;
+    margin: 30px;
 }
 
 th {
