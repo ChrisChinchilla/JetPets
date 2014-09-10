@@ -1987,10 +1987,18 @@ function process_json()
                     asort($scoreArray);
                     $last = end($scoreArray);
                     $pNode->field_primary_pet_character[LANGUAGE_NONE][0]['target_id'] = $characterArray[key($scoreArray)];
+                    //$pNode->field_primary_score[LANGUAGE_NONE][0]['value'] = $last;
 
                     $secondLast = prev($scoreArray);
                     // Save the references
-                    $pNode->field_secondary_pet_character[LANGUAGE_NONE][1]['target_id'] = $characterArray[key($scoreArray)];
+                    $pNode->field_secondary_pet_character[LANGUAGE_NONE][0]['target_id'] = $characterArray[key($scoreArray)];
+                    //$pNode->field_secondary_score[LANGUAGE_NONE][0]['value'] = $secondLast;
+
+                    $total = $last + $secondLast;
+                    $pNode->field_primary_score[LANGUAGE_NONE][0]['value'] = ceil(($last / $total) * 100);
+                    $pNode->field_secondary_score[LANGUAGE_NONE][0]['value'] = floor(($secondLast / $total) * 100);
+
+                    $pNode->field_owner[LANGUAGE_NONE][0]['target_id'] = $cNode->nid;
 
                     //Save pet
                     $pNode = node_submit($pNode); // Prepare node for a submit
