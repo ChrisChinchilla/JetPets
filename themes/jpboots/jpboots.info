@@ -65,3 +65,21 @@ stylesheets[all][] = css/print-rtl.css.css
 ; Method 2 uses BootstrapCDN, the only thing you might need to provide here
 ; is overrides to Bootstrap theme settings. Copy them here from the base theme
 ; to override.
+
+fonts[google_fonts_api][] = "Lobster&subset=cyrillic#regular"
+fonts[google_fonts_api][] = "Lobster&subset=latin#regular"
+fonts[google_fonts_api][] = "Lobster&subset=latin-ext#regular"
+fonts[google_fonts_api][] = "Lobster Two&subset=latin#700"
+fonts[google_fonts_api][] = "Lobster Two&subset=latin#700italic"
+fonts[google_fonts_api][] = "Lobster Two&subset=latin#italic"
+fonts[google_fonts_api][] = "Lobster Two&subset=latin#regular"
+fonts[google_fonts_api][] = "Ubuntu&subset=latin#300"
+fonts[google_fonts_api][] = "Ubuntu&subset=latin#700"
+fonts[google_fonts_api][] = "Ubuntu Condensed&subset=cyrillic#regular"
+fonts[google_fonts_api][] = "Ubuntu Condensed&subset=cyrillic-ext#regular"
+fonts[google_fonts_api][] = "Ubuntu Condensed&subset=greek#regular"
+fonts[google_fonts_api][] = "Ubuntu Condensed&subset=greek-ext#regular"
+fonts[google_fonts_api][] = "Ubuntu Condensed&subset=latin#regular"
+fonts[google_fonts_api][] = "Ubuntu Condensed&subset=latin-ext#regular"
+fonts[google_fonts_api][] = "Ubuntu&subset=latin#italic"
+fonts[google_fonts_api][] = "Ubuntu&subset=latin-ext#italic"

@@ -1,26 +1,7 @@
-.print_pdf {
+body {
     margin: 0;
 }
-
-/*.print_pdf body {*/
-    /*background-image: url("../images/pdf_bg.png");*/
-    /*background-size: cover;*/
-    /*background-repeat: no-repeat;*/
-    /*background-position: left top;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-/*}*/
-
-/*.node-pet {*/
-    /*background-image: url("../images/pdf_bg.png");*/
-    /*background-size: cover;*/
-    /*background-repeat: no-repeat;*/
-    /*background-position: left top;*/
-    /*width: 21cm;*/
-    /*height: 29.7cm;*/
-    /*padding:30px;*/
-/*}*/
-
+html{margin: 0;}
 th {
     text-align: left; /* LTR */
     color: #006;
