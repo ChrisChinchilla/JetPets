@@ -1,54 +1,72 @@
 /*Navbar Styles*/
-a.logo.navbar-btn.pull-left img {
-    position:absolute;
-    top:-5px;
-    left:0;
-    height:133px;
+#navbar {
+    display: none;
 }
+
+a.logo.navbar-btn.pull-left img {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    height: 133px;
+}
+
 .navbar-default {
-    padding-left:333px;
+    padding-left: 333px;
     background-color: #003a79;
     border-color: #003a79;
 }
+
 .navbar-default .navbar-brand {
     color: #ffffff;
 }
+
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
     color: #f39834;
 }
+
 .navbar-default .navbar-text {
     color: #ffffff;
 }
+
 .navbar-default .navbar-nav > li > a {
     color: #ffffff;
 }
+
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     color: #f39834;
 }
+
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
     color: #f39834;
     background-color: #003a79;
 }
+
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
     color: #f39834;
     background-color: #003a79;
 }
+
 .navbar-default .navbar-toggle {
     border-color: #003a79;
 }
+
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
     background-color: #003a79;
 }
+
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #ffffff;
 }
+
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
     border-color: #ffffff;
 }
+
 .navbar-default .navbar-link {
     color: #ffffff;
 }
+
 .navbar-default .navbar-link:hover {
     color: #f39834;
 }
@@ -57,9 +75,11 @@ a.logo.navbar-btn.pull-left img {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #ffffff;
     }
+
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
         color: #f39834;
     }
+
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
         color: #f39834;
         background-color: #003a79;
@@ -69,7 +89,7 @@ a.logo.navbar-btn.pull-left img {
 .navbar-default {
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-bottom:70px;
+    margin-bottom: 70px;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 15px;
@@ -78,13 +98,7 @@ a.logo.navbar-btn.pull-left img {
 /* Background Image*/
 
 body {
-    background-image: url('/sites/all/themes/jpboots/cloudsbg.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-
-
-    background-color: #cccccc;
+    background: none;
 }
 
 #heart .well {
@@ -100,4 +114,68 @@ body {
 .page-personalities .views-row {
     float: left;
     clear: both;
+}
+
+#block-block-1 {
+    width: 21cm;
+    height: 29.7cm;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#block-block-1 img {
+    width: 100%;
+    height: 100%;
+}
+
+.node-type-survey-response .main-container {
+    width: 21cm;
+    height: 29.7cm;
+}
+
+.node-type-survey-response #block-system-main {
+    width: 21cm;
+    height: 29.7cm;
+    padding: 30px;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.footer {
+    border: none;
+}
+
+.node-type-survey-response .nav-tabs {
+    display: none;
+}
+
+.social-share-facebook {
+    background-image: url("../images/fb_email_logo.png");
+}
+
+.social-share-googleplus {
+    background-image: url("../images/gp_email_logo.png");
+}
+
+.social-share-twitter {
+    background-image: url("../images/tw_email_logo.png");
+}
+
+.block-print-ui {
+    float: left;
+}
+
+.block-social-share {
+float: right;
+}
+
+.block-social-share a {
+    display:inline-block;
+    width:100px;
+    height:30px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 }
