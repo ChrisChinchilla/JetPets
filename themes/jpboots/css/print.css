@@ -21,64 +21,6 @@
     /*padding:30px;*/
 /*}*/
 
-.field-name-field-primary-pet-character .field-name-body,
-.field-name-field-pet .node-pet h2 {
-    text-align: center;
-}
-
-.field-name-field-pet .node-pet h2::before {
-    content: "Congratulations ";
-    color: #336666;
-}
-
-.field-name-field-pet .node-pet h2::after {
-    content: " is a";
-    color: #336666;
-}
-
-/* Don't like the below */
-.field-name-field-pet .node-pet .node-pet-character h2 {
-    display: none;
-}
-
-.field-name-field-primary-score {
-    background-color: #c8138a;
-    height:15px;
-    float:left;
-}
-
-.field-name-field-secondary-score {
-    background-color: #fbea0d;
-    height:15px;
-    float:right;
-}
-
-.field-name-field-pet-cert-image img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto
-}
-
-.field-name-field-secondary-pet-character {
-    padding: 10px;
-    background: rgba(118, 139, 133, 0.5);
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    color:#ffffff;
-    font-size: 11px;
-}
-
-.field-name-field-secondary-pet-character a {
-    color: #ffffff;
-}
-
-.field-name-field-primary-pet-character .field-name-body {
-    font-size: 15px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
 th {
     text-align: left; /* LTR */
     color: #006;
@@ -173,4 +115,15 @@ img.print-logo {
 
 .print-footer {
     text-align: center;
+}
+ #page-header, #toolbar {
+     display: none;
+ }
+
+ body {
+     padding: 0;
+ }
+
+body.toolbar-drawer {
+    padding-top: 0 !important;
 }
