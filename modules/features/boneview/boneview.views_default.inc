@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * bone.views_default.inc
+ * boneview.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function bone_views_default_views() {
+function boneview_views_default_views() {
   $export = array();
 
   $view = new view();

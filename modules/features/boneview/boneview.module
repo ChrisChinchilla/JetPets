@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the boneview feature.
+ */
+
+include_once 'boneview.features.inc';
