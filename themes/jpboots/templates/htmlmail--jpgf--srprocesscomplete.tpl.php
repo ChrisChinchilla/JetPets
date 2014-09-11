@@ -8,7 +8,7 @@ if (!strncmp($template_path, $current_path, $current_len)) {
     $template_path = substr($template_path, $current_len + 1);
 }
 $template_url = url($template_path, array('absolute' => TRUE));
-$themeURL = url(drupal_get_path('theme', $GLOBALS['theme']), array('absolute' => TRUE));
+$themeURL = url(drupal_get_path('theme', 'jpboots'), array('absolute' => TRUE));
 ?>
 
 <div class="htmlmail-body" style="max-width:550px;">
