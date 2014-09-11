@@ -169,13 +169,13 @@ body {
 }
 
 .block-social-share {
-float: right;
+    float: right;
 }
 
 .block-social-share a {
-    display:inline-block;
-    width:100px;
-    height:30px;
+    display: inline-block;
+    width: 100px;
+    height: 30px;
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -201,16 +201,58 @@ float: right;
     display: none;
 }
 
-.field-name-field-primary-score {
-    background-color: #c8138a;
-    height:15px;
-    float:left;
+#left_bone {
+    background-image: url("../images/red_bone.png");
+    height: 31px;
+    width: 22px;
+    background-repeat: no-repeat;
+    float: left;
 }
 
-.field-name-field-secondary-score {
+.bone_layer {
+    width: 400px;
+    margin-right: 5px;
+    float: left;
+}
+
+.bone_main_content {
+margin-left: 405px;
+}
+
+.views-field-field-primary-pet-character {
+    margin-left: 25px;
+    margin-bottom: -5px;
+    display: inline-block;
+}
+
+.views-field-field-secondary-pet-character {
+    display: inline-block;
+    float: right;
+    margin-right: 5px;
+    margin-top:-37px;
+}
+
+
+.pr_inner {
+    background-color: #c8138a;
+    height: 15px;
+    float: left;
+    margin-top: 8px;
+}
+
+.sc_inner {
     background-color: #fbea0d;
-    height:15px;
-    float:right;
+    height: 15px;
+    float: right;
+    margin-top: 8px;
+}
+
+#right_bone {
+    background-image: url("../images/yellow_bone.png");
+    height: 31px;
+    width: 22px;
+    background-repeat: no-repeat;
+    float: right;
 }
 
 .field-name-field-pet-cert-image img {
@@ -225,7 +267,7 @@ float: right;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    color:#ffffff;
+    color: #ffffff;
     font-size: 11px;
 }
 

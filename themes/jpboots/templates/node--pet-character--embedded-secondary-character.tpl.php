@@ -7,11 +7,9 @@
     <?php print render($title_suffix); ?>
 
     <div class="content"<?php print $content_attributes; ?>>
-        <?php print $second_block_header; ?>
-        <?php
-
-        print render($content);
-        ?>
+        <p><?php print $second_block_header; ?></p>
+        <div class="bone_layer"><?php print views_embed_view('bone', 'block', $_SESSION['petID']);?></div>
+        <div class="bone_main_content"><?php print render($content);?></div>
         <?php print $second_block_footer; ?>
 
     </div>
