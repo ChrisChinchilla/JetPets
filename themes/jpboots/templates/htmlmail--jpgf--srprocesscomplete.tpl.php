@@ -40,7 +40,7 @@ $themeURL = url(drupal_get_path('theme', $GLOBALS['theme']), array('absolute' =>
             src="<?php echo $themeURL; ?>/images/em_email_logo.png"></a>
 
     <br>
-    You can view the your result <a href="<?php echo $params['url'] ?>">here</a> and print out and frame if you wish.<br>
+    You can view your result <a href="<?php echo $params['url'] ?>">here</a> and print out and frame if you wish.<br>
     <br>
     Find out how <?php echo $params['petName'] ?> compares to other pets <a href="http://petquiz.com.au/personalities"
                                                                             target="_blank">here</a>.<br>

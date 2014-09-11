@@ -91,3 +91,13 @@ body {
     border-radius: 10px;
     border: medium solid #f39834;
 }
+
+.page-personalities .views-field-field-pet-image {
+    float: left;
+    margin-right: 10px;
+}
+
+.page-personalities .views-row {
+    float: left;
+    clear: both;
+}
