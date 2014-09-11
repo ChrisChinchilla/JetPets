@@ -2023,6 +2023,7 @@ function process_json()
                     $returnData[] = $value; // This can probably go?
 
                     $params = array(
+                        'subject' => 'Congratulations ' . $cNode->title . '! Your ' . $pNode->title . ' is a ' . $petTypes[0] . '.',
                         'name' => $cNode->title,
                         'url' => url('node/' . $srNode->nid, array('absolute' => true, 'alias' => false)),
                         'petName' => $pNode->title,
@@ -2057,4 +2058,9 @@ function jpgf_page_build()
 function jpgf_cron()
 {
     process_json();
+}
+
+function jpgf_mail($key, &$message, $params)
+{
+    $message['subject'] = t($params['subject']);
 }

@@ -12,8 +12,7 @@ $themeURL = url(drupal_get_path('theme', $GLOBALS['theme']), array('absolute' =>
 ?>
 
 <div class="htmlmail-body" style="max-width:550px;">
-    Congratulations <?php echo $params['name'] ?>!! Your <?php echo $params['petName'] ?> is
-    a <?php echo $params['petType'][0] ?>.<br>
+    <?php echo $params['subject']; ?><br>
     <br>
     <?php
     $config = array(
@@ -22,11 +21,15 @@ $themeURL = url(drupal_get_path('theme', $GLOBALS['theme']), array('absolute' =>
         "height" => NULL,
         "width" => NULL,
         "attributes" => array(
-            "style" => "float: left; margin-right:10px;",
+            "style" => "float: left; margin-right:10px;"
         )
     );
-    print theme_image_style($config);
     ?>
+    <a href="<?php echo $params['url']; ?>">
+        <?php
+        print theme_image_style($config);
+        ?>
+    </a>
     <br>
 
     <p>Share your result</p>
