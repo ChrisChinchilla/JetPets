@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Bone feature.
+ */
+
+include_once 'bone.features.inc';
