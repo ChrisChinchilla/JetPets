@@ -1,7 +1,11 @@
 body {
     margin: 0;
 }
-html{margin: 0;}
+
+html {
+    margin: 0;
+}
+
 th {
     text-align: left; /* LTR */
     color: #006;
@@ -97,13 +101,14 @@ img.print-logo {
 .print-footer {
     text-align: center;
 }
- #page-header, #toolbar {
-     display: none;
- }
 
- body {
-     padding: 0;
- }
+#page-header, #toolbar {
+    display: none;
+}
+
+body {
+    padding: 0;
+}
 
 body.toolbar-drawer {
     padding-top: 0 !important;
