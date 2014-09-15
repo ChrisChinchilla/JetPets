@@ -205,6 +205,7 @@ body {
 
 .field-name-field-pet .node-pet h2 {
     font-family: 'Lobster Two';
+    src: url('../../../fonts/LobsterTwo-Italic.otf') format('truetype');
     font-style: italic;
 }
 
