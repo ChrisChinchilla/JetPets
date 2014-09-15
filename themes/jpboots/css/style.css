@@ -148,6 +148,7 @@ body {
     height: 29.7cm;
     padding: 30px;
 }
+
 .node-type-survey-response #block-system-main {
 
 }
@@ -188,6 +189,18 @@ body {
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
+}
+
+.page-node-955 .main-container,
+.page-node-955 .container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.page-node-955 #heart {
+    padding: 0;
+    margin: 0;
 }
 
 .field-name-field-pet .node-pet h2 {
@@ -236,7 +249,7 @@ body {
 }
 
 .bone_main_content {
-margin-left: 405px;
+    margin-left: 405px;
 }
 
 .views-field-field-primary-pet-character {
@@ -249,9 +262,8 @@ margin-left: 405px;
     display: inline-block;
     float: right;
     margin-right: 5px;
-    margin-top:-37px;
+    margin-top: -37px;
 }
-
 
 .pr_inner {
     -webkit-print-color-adjust: exact;
