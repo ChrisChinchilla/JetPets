@@ -191,16 +191,16 @@ body {
     overflow: hidden;
 }
 
-.page-node-955 .main-container,
 .page-node-955 .container {
     width: 100%;
-    margin: 0;
-    padding: 0;
 }
 
-.page-node-955 #heart {
-    padding: 0;
-    margin: 0;
+.page-node-955 .col-sm-12 {
+    padding: 2px;
+}
+
+.page-node-955 .field-item {
+    height: 100%;
 }
 
 .field-name-field-pet .node-pet h2 {
