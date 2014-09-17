@@ -395,12 +395,34 @@ function image_gd_image_effects_text(stdClass $image, array $params) {
         $params['xpos'] -= $params['halign'] === 'center' ? (int) ($width / 2) : $width;
       }
     }
-
+$fText = makeTextBlock($params['text'],$params['fontpath'],$params['size'],285);
     // PHP Manual: "This function requires both the GD library and the » FreeType library."
-    $bounds = imagettftext($image->resource, $params['size'], $params['angle'], $params['xpos'], $params['ypos'], $color, $params['fontpath'], $params['text']);
+    $bounds = imagettftext($image->resource, $params['size'], $params['angle'], $params['xpos'], $params['ypos'], $color, $params['fontpath'], $fText);
     return $bounds !== FALSE;
   }
   return FALSE;
+}
+
+function makeTextBlock($text, $fontfile, $fontsize, $width)
+{
+    $words = explode(' ', $text);
+    $lines = array($words[0]);
+    $currentLine = 0;
+    for($i = 1; $i < count($words); $i++)
+    {
+        $lineSize = imagettfbbox($fontsize, 0, $fontfile, $lines[$currentLine] . ' ' . $words[$i]);
+        if($lineSize[2] - $lineSize[0] < $width)
+        {
+            $lines[$currentLine] .= ' ' . $words[$i];
+        }
+        else
+        {
+            $currentLine++;
+            $lines[$currentLine] = $words[$i];
+        }
+    }
+
+    return implode("\n", $lines);
 }
 
 /**
