@@ -16,7 +16,7 @@ $themeURL = url(drupal_get_path('theme', 'jpboots'), array('absolute' => TRUE));
     <br>
     <?php
     $config = array(
-        "style_name" => "300px_shareable",
+        "style_name" => "600px_shareable",
         "path" => $params['petImage'][0],
         "height" => NULL,
         "width" => NULL,
