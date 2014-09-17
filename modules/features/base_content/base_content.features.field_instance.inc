@@ -813,6 +813,13 @@ function base_content_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
+      'email_share' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
       'embedded_character' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -869,6 +876,16 @@ function base_content_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 6,
+      ),
+      'email_share' => array(
         'label' => 'above',
         'module' => 'image',
         'settings' => array(
@@ -950,6 +967,16 @@ function base_content_field_default_field_instances() {
         'type' => 'image',
         'weight' => 5,
       ),
+      'email_share' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 5,
+      ),
       'embedded_character' => array(
         'label' => 'hidden',
         'settings' => array(),
@@ -1020,6 +1047,13 @@ function base_content_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 4,
       ),
+      'email_share' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 4,
+      ),
       'embedded_character' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1069,6 +1103,13 @@ function base_content_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 1,
+      ),
+      'email_share' => array(
         'label' => 'above',
         'module' => 'taxonomy',
         'settings' => array(),
