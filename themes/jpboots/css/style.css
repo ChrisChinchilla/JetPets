@@ -136,14 +136,9 @@ body {
 
 .node-survey-response {
     background-image: url("../images/pdf_bg.png");
-    /*background-size: cover;*/
-    /*background-repeat: no-repeat;*/
-    /*background-image: url("../images/pdf_bg.png");*/
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position: left top;
-    /*width: 21cm;*/
-    /*height: 29.7cm;*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: left top;*/
     width: 21cm;
     height: 29.7cm;
     padding: 30px;
