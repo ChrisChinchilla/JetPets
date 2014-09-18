@@ -136,7 +136,7 @@ body {
 
 .node-survey-response {
     background-image: url("../images/pdf_bg.png");
-    background-size: cover;
+    background-size: contain;
     /*background-repeat: no-repeat;*/
     /*background-position: left top;*/
     width: 21cm;
