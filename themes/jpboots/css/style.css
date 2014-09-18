@@ -139,10 +139,16 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: left top;
-    position: relative;
     width: 21cm;
     height: 29.7cm;
     padding: 30px;
+}
+
+.print-content .node-survey-response h2,
+.node-survey-response h2
+{
+    margin: 0;
+    padding: 0;
 }
 
 .node-type-survey-response #block-system-main {
@@ -225,7 +231,7 @@ body {
 .field-name-field-primary-pet-character .field-name-body,
 .field-name-field-pet .node-pet h2 {
     text-align: center;
-    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .field-name-field-pet .node-pet h2::before {

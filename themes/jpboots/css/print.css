@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    padding: 0;
 }
 
 html {
@@ -73,8 +74,11 @@ img.print-logo {
 .print-taxonomy li {
     display: inline;
 }
-
-.print-content {
+.print-content .node-survey-response h2,
+.node-survey-response h2
+{
+    margin: 0;
+    padding: 0;
 }
 
 .print-hr {
@@ -104,10 +108,6 @@ img.print-logo {
 
 #page-header, #toolbar {
     display: none;
-}
-
-body {
-    padding: 0;
 }
 
 body.toolbar-drawer {
