@@ -6,10 +6,6 @@ html {
     margin: 0;
 }
 
-.node-survey-response {
-    padding-top: 0;
-}
-
 th {
     text-align: left; /* LTR */
     color: #006;

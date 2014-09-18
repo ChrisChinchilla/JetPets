@@ -225,6 +225,7 @@ body {
 .field-name-field-primary-pet-character .field-name-body,
 .field-name-field-pet .node-pet h2 {
     text-align: center;
+    margin-top: 0;
 }
 
 .field-name-field-pet .node-pet h2::before {
