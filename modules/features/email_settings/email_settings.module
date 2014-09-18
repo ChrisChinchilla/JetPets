@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Email Settings feature.
+ */
+
+include_once 'email_settings.features.inc';

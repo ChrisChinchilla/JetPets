@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Social Sharing feature.
+ */
+
+include_once 'social_sharing.features.inc';

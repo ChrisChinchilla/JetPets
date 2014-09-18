@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Print Settings feature.
+ */
+
+include_once 'print_settings.features.inc';

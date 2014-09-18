@@ -962,7 +962,7 @@ function base_content_field_default_field_instances() {
         'module' => 'image',
         'settings' => array(
           'image_link' => '',
-          'image_style' => '',
+          'image_style' => '600px_shareable',
         ),
         'type' => 'image',
         'weight' => 5,
@@ -994,7 +994,7 @@ function base_content_field_default_field_instances() {
         'module' => 'image',
         'settings' => array(
           'image_link' => '',
-          'image_style' => '300px_shareable',
+          'image_style' => '600px_shareable',
         ),
         'type' => 'image',
         'weight' => 0,
