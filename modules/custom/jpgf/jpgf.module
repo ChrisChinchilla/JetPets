@@ -23,20 +23,6 @@ function jpgf_menu()
 }
 
 /**
- * Implements hook_help().
- */
-function jpgf_help($path, $arg)
-{
-    switch ($path) {
-        case 'admin/help#jpgf':
-
-            // Return a line-break version of the README.
-            $readme = file_get_contents(drupal_get_path('module', 'jpgf') . '/README.txt');
-            return nl2br($readme);
-    }
-}
-
-/**
  * Page example callback, referenced in hook_menu().
  *
  * Description of what the page displays.
@@ -63,7 +49,7 @@ function process_json()
         )
     ));
 
-    $response = file_get_contents('https://api.getfeedback.com/surveys/29880/responses?since=' . variable_get('last_fetch'), false, $context);
+    $response = file_get_contents('https://api.getfeedback.com/surveys/29880/responses?since=' . urlencode(variable_get('last_fetch')), false, $context);
 
     // Check for errors
     if ($response === FALSE) {
@@ -73,6 +59,7 @@ function process_json()
         $responseData = json_decode($response, TRUE);
         //dpm($responseData);
         $returnData = array();
+
         foreach ($responseData['active_models'] as $value) {
             if ((!empty($value['answers'])) && ($value['status'] == 'completed')) {
                 /*
