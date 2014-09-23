@@ -19,7 +19,77 @@ function jpgf_menu()
         'type' => MENU_NORMAL_ITEM,
     );
 
+    $items['addimage/%/%'] = array(
+        'title' => t("Add your pet's photo"),
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('jpgf_aiform', 1, 2),
+        'access callback' => 'jpgf_aiaccess',
+        'access arguments' => array(1, 2),
+        'type' => MENU_CALLBACK,
+    );
+
     return $items;
+}
+
+function jpgf_aiaccess($nid, $cid)
+{
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'pet')
+        ->propertyCondition('status', 1)
+        ->propertyCondition('nid', $nid)
+        ->fieldCondition('field_owner', 'target_id', $cid, '=')
+        ->range(0, 1);
+    $result = $query->execute();
+    if (isset($result['node'])) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
+function jpgf_aiform($form, &$form_state, $nid, $cid)
+{
+    $form = array();
+    $petNode = node_load($nid);
+    $form['#petNode'] = $petNode;
+
+    $form['pet_name'] = array(
+        '#markup' => '<p>You are adding an image for ' . $petNode->title . '</p>',
+    );
+
+    field_attach_form('node', $petNode, $form, $form_state, NULL, array(
+        'field_name' => 'field_pet_image',
+    ));
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Submit'),
+        '#weight' => 20,
+    );
+
+    return $form;
+}
+
+function jpgf_aiform_submit($form, &$form_state)
+{
+    $petNode = (object)$form['#petNode'];
+    $imageField = $form_state['values']['field_pet_image'];
+
+    $petNode->field_pet_image = $imageField;
+    entity_save('node', $petNode);
+
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'survey_response')
+        ->propertyCondition('status', 1)
+        ->fieldCondition('field_pet', 'target_id', $petNode->nid, '=')
+        ->range(0, 1);
+    $result = $query->execute();
+    if (isset($result['node'])) {
+        $nid = array_keys($result['node']);
+        drupal_goto('node/' . $nid[0]);
+    }
 }
 
 /**
