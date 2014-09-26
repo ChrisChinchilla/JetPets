@@ -496,8 +496,8 @@ function print_settings_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'print_pdf_link_pos';
   $strongarm->value = array(
-    'link' => 'link',
     'block' => 'block',
+    'link' => 0,
     'corner' => 0,
     'help' => 0,
   );
@@ -661,7 +661,7 @@ function print_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'print_pdf_wkhtmltopdf_options';
-  $strongarm->value = '--footer-font-size 7 --footer-right \'[page]\' --margin-bottom 0m --margin-left 0m --margin-top 0m --margin-right 0m';
+  $strongarm->value = '--footer-font-size 7 --footer-right \'[page]\' --margin-bottom 0m --margin-left 0m --margin-top 0m --margin-right 0m --dpi 300';
   $export['print_pdf_wkhtmltopdf_options'] = $strongarm;
 
   $strongarm = new stdClass();

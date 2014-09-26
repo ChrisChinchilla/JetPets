@@ -145,8 +145,7 @@ body {
 }
 
 .print-content .node-survey-response h2,
-.node-survey-response h2
-{
+.node-survey-response h2 {
     margin: 0;
     padding: 0;
 }
@@ -239,14 +238,31 @@ body {
     color: #336666;
 }
 
-.field-name-field-pet .node-pet h2::after {
+.field-name-field-pet h2::after {
     content: " is a";
     color: #336666;
 }
 
-/* Don't like the below */
-.field-name-field-pet .node-pet .node-pet-character h2 {
+.field-name-field-primary-pet-character .node-pet-character h2::before,
+.field-name-field-primary-pet-character .node-pet-character h2::after {
+    content: none;
+}
+
+.field-name-field-secondary-pet-character h2 {
     display: none;
+}
+
+.withImage {
+    text-align: center;
+    position: relative;
+    top: -75px;
+}
+
+.field-name-field-primary-pet-character .node-pet-character h2 {
+    /*position: absolute;*/
+    /*top: -75px;*/
+    /*margin-top: -75px;*/
+    /*margin-bottom: 75px;*/
 }
 
 #left_bone {
@@ -306,6 +322,26 @@ body {
     float: right;
 }
 
+.field-name-field-pet-image {
+    width: 700px;
+    margin: auto;
+    height: 504px;
+}
+
+.field-name-field-pet-image img:not(.overlay) {
+    /*display: block;*/
+    /*margin: auto;*/
+    width: 288px;
+    height: 381px;
+    margin-left: 205px;
+    margin-top: 16px;
+}
+
+.field-name-field-pet-image img.overlay {
+    position: absolute;
+    width: 700px;
+}
+
 .field-name-field-pet-cert-image img {
     display: block;
     margin-left: auto;
@@ -331,4 +367,10 @@ body {
     font-size: 15px;
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+.withImage .field-name-body {
+    font-size: 15px;
+    margin-top: 75px;
+    margin-bottom: -45px;
 }

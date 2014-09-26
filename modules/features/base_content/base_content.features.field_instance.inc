@@ -503,6 +503,71 @@ function base_content_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-pet-field_pet_image'
+  $field_instances['node-pet-field_pet_image'] = array(
+    'bundle' => 'pet',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 10,
+      ),
+      'embedded_pet' => array(
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_pet_image',
+    'label' => 'Pet Image',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'imagefield_crop',
+      'settings' => array(
+        'collapsible' => 1,
+        'croparea' => '500x500',
+        'enforce_minimum' => 1,
+        'enforce_ratio' => 1,
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+        'resolution' => '288x381',
+      ),
+      'type' => 'imagefield_crop_widget',
+      'weight' => 13,
+    ),
+  );
+
   // Exported field_instance: 'node-pet-field_pet_sex'
   $field_instances['node-pet-field_pet_sex'] = array(
     'bundle' => 'pet',
@@ -613,7 +678,7 @@ function base_content_field_default_field_instances() {
           'view_mode' => 'embedded_character',
         ),
         'type' => 'entityreference_entity_view',
-        'weight' => 0,
+        'weight' => 1,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -718,7 +783,7 @@ function base_content_field_default_field_instances() {
           'view_mode' => 'embedded_secondary_character',
         ),
         'type' => 'entityreference_entity_view',
-        'weight' => 1,
+        'weight' => 2,
       ),
       'teaser' => array(
         'label' => 'above',
