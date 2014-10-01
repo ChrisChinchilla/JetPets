@@ -322,13 +322,13 @@ body {
     float: right;
 }
 
-.field-name-field-pet-image {
+.node-survey-response .field-name-field-pet-image {
     width: 700px;
     margin: auto;
     height: 504px;
 }
 
-.field-name-field-pet-image img:not(.overlay) {
+.node-survey-response .field-name-field-pet-image img:not(.overlay) {
     /*display: block;*/
     /*margin: auto;*/
     width: 288px;
@@ -337,12 +337,12 @@ body {
     margin-top: 16px;
 }
 
-.field-name-field-pet-image img.overlay {
+.node-survey-response .field-name-field-pet-image img.overlay {
     position: absolute;
     width: 700px;
 }
 
-.field-name-field-pet-cert-image img {
+.node-survey-response .field-name-field-pet-cert-image img {
     display: block;
     margin-left: auto;
     margin-right: auto
