@@ -124,7 +124,7 @@ function process_json()
     } else {
         // Decode the response
         $responseData = json_decode($response, TRUE);
-        dpm($responseData);
+        //dpm($responseData);
         $returnData = array();
 
         foreach ($responseData['active_models'] as $value) {
