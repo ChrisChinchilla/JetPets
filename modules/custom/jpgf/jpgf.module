@@ -118,14 +118,13 @@ function process_json()
     ));
 
     $response = file_get_contents('https://api.getfeedback.com/surveys/29880/responses?since=' . urlencode(variable_get('last_fetch')), false, $context);
-
     // Check for errors
     if ($response === FALSE) {
         // die(curl_error($ch));
     } else {
         // Decode the response
         $responseData = json_decode($response, TRUE);
-        //dpm($responseData);
+        dpm($responseData);
         $returnData = array();
 
         foreach ($responseData['active_models'] as $value) {
@@ -177,8 +176,8 @@ function process_json()
                     $petSex = taxonomy_get_term_by_name($value['answers'][0]['form_fields'][5]['text'], 'pet_sex');
                     if (!empty($petSex)) $pNode->field_pet_sex[LANGUAGE_NONE][0]['tid'] = key($petSex);
                     // TODO: This was to get around field inconsistencies, is it still needed?
-                    if ($value['answers'][11]['choices'][0]['text'] == 'Cat') $petType = taxonomy_get_term_by_name($value['answers'][11]['choices'][0]['text'], 'pet_type');
-                    if ($value['answers'][11]['choices'][0]['text'] == 'Dog') $petType = taxonomy_get_term_by_name($value['answers'][11]['choices'][0]['text'], 'pet_type');
+                    if ($value['answers'][10]['choices'][0]['text'] == 'Cat') $petType = taxonomy_get_term_by_name($value['answers'][10]['choices'][0]['text'], 'pet_type');
+                    if ($value['answers'][10]['choices'][0]['text'] == 'Dog') $petType = taxonomy_get_term_by_name($value['answers'][10]['choices'][0]['text'], 'pet_type');
                     // TODO: The above will cause warnings at the moment
                     if (!empty($petType)) $pNode->field_pet_type[LANGUAGE_NONE][0]['tid'] = key($petType);
                     node_object_prepare($cNode); // Set some default values.
@@ -2080,6 +2079,8 @@ function process_json()
                     $params = array(
                         'subject' => 'Congratulations ' . $cNode->title . '! Your ' . $pNode->title . ' is a ' . $petTypes[0] . '.',
                         'name' => $cNode->title,
+                        'cID' => $cNode->nid,
+                        'pID' => $pNode->nid,
                         'url' => url('node/' . $srNode->nid, array('absolute' => true, 'alias' => false)),
                         'petName' => $pNode->title,
                         'petType' => $petTypes,
@@ -2089,7 +2090,7 @@ function process_json()
                         'shareURL' => url(drupal_get_path_alias('node/' . $pNode->field_primary_pet_character[LANGUAGE_NONE][0]['target_id']), array('absolute' => true, 'alias' => false))
                     );
                     $message = drupal_mail('jpgf', 'srprocesscomplete', $value['answers'][0]['form_fields'][4]['text'], LANGUAGE_NONE, $params);
-                    dpm($message);
+                    //dpm($message);
                 } else {
                     watchdog('jpgf', 'Node based on this Survey Response has already been created', NULL, WATCHDOG_NOTICE);
                 }
