@@ -1,7 +1,7 @@
 name = Base Content
 core = 7.x
 package = Content
-version = 7.x-3.0
+version = 7.x-3.1
 project = base_content
 dependencies[] = date
 dependencies[] = date_api
@@ -134,7 +134,6 @@ features[uuid_node][] = 54f443e9-d7cd-422a-a8c5-c4858cf75b77
 features[uuid_node][] = 5a975e01-5ca0-47ce-91dd-300507bda931
 features[uuid_node][] = 5cef49b1-eedd-4579-a240-451a83428f06
 features[uuid_node][] = 731984c7-ec21-407c-b8e8-1f93fa758d2e
-features[uuid_node][] = 7751bfc5-2154-4ed9-b376-272a8ad09f19
 features[uuid_node][] = 89c26203-c287-4b90-ae4d-8640287638a9
 features[uuid_node][] = 8ddaf45d-a3c6-408a-aaad-4ee6c11def29
 features[uuid_node][] = 8f67aa5f-7e80-48bf-a7f3-62e0021005d5
