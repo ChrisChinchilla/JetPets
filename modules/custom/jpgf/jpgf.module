@@ -220,8 +220,8 @@ function process_json()
                         $breedFamily = taxonomy_get_parents(key($petBreed));
                         $pNode->field_pet_breed[LANGUAGE_NONE][0]['tid'] = key($breedFamily);
 
-                        switch (key($breedFamily)) {
-                            case 8: //Terriers
+                        switch ($breedFamily[key($breedFamily)]->name) {
+                            case 'Terriers':
                                 //Aristocrat
                                 $scoreArray[0] += 24;
                                 //Buddy
@@ -239,7 +239,7 @@ function process_json()
                                 //Wanderer
                                 $scoreArray[7] += 12;
                                 break;
-                            case 11: //Hounds
+                            case 'Hounds':
                                 //Aristocrat
                                 $scoreArray[0] += 36;
                                 //Buddy
@@ -257,7 +257,7 @@ function process_json()
                                 //Wanderer
                                 $scoreArray[7] += 54;
                                 break;
-                            case 14: //Non-Sporting
+                            case 'Non-Sporting':
                                 //Aristocrat
                                 $scoreArray[0] += 60;
                                 //Buddy
@@ -275,7 +275,7 @@ function process_json()
                                 //Wanderer
                                 $scoreArray[7] += 6;
                                 break;
-                            case 10: //Gundogs
+                            case 'Gundogs':
                                 //Aristocrat
                                 $scoreArray[0] += 24;
                                 //Buddy
@@ -293,7 +293,7 @@ function process_json()
                                 //Wanderer
                                 $scoreArray[7] += 42;
                                 break;
-                            case 9: //Toys
+                            case 'Toys':
                                 //Aristocrat
                                 $scoreArray[0] += 60;
                                 //Buddy
@@ -311,7 +311,7 @@ function process_json()
                                 //Wanderer
                                 $scoreArray[7] += 24;
                                 break;
-                            case 13: //Utility
+                            case 'Utility':
                                 //Aristocrat
                                 $scoreArray[0] += 12;
                                 //Buddy
@@ -329,7 +329,7 @@ function process_json()
                                 //Wanderer
                                 $scoreArray[7] += 30;
                                 break;
-                            case 12: //Working Dogs
+                            case 'Working Dogs':
                                 //Aristocrat
                                 $scoreArray[0] += 24;
                                 //Buddy
