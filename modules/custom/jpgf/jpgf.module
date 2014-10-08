@@ -117,14 +117,14 @@ function process_json()
         )
     ));
 
-    $response = file_get_contents('https://api.getfeedback.com/surveys/29880/responses?since=' . urlencode(variable_get('last_fetch')), false, $context);
+    $response = file_get_contents('https://api.getfeedback.com/surveys/29880/responses?since=' . urlencode(variable_get('last_fetch')), FALSE, $context);
     // Check for errors
     if ($response === FALSE) {
         // die(curl_error($ch));
     } else {
         // Decode the response
         $responseData = json_decode($response, TRUE);
-        //dpm($responseData);
+        dpm($responseData);
         $returnData = array();
 
         foreach ($responseData['active_models'] as $value) {
@@ -143,9 +143,8 @@ function process_json()
 
                 $result = $query->execute();
 
-                $petSex = '';
-
                 if (!isset($result['node'])) {
+
                     // Create the Contact
                     // If the Survey changes, this code will have to change
                     // More of the contact fields need to be added to the GF Survey. Maybe?
@@ -171,37 +170,33 @@ function process_json()
                     $pNode->type = "pet"; // Or any other content type you want
                     $pNode->title = $value['answers'][0]['form_fields'][0]['text'];
                     $pNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
-                    //$node->path = array('alias' => 'your node path'); // Setting a node path
                     //Could the below be better, using taxonomy to allow for future expansion, but will it?
+
+                    $petSex = '';
+                    $petBreed = '';
+
                     $petSex = taxonomy_get_term_by_name($value['answers'][0]['form_fields'][5]['text'], 'pet_sex');
-                    if (!empty($petSex)) $pNode->field_pet_sex[LANGUAGE_NONE][0]['tid'] = key($petSex);
+                    if (!empty($petSex)) {
+                        $pNode->field_pet_sex[LANGUAGE_NONE][0]['tid'] = key($petSex);
+                    }
+
                     // TODO: This was to get around field inconsistencies, is it still needed?
-                    if ($value['answers'][10]['choices'][0]['text'] == 'Cat') $petType = taxonomy_get_term_by_name($value['answers'][10]['choices'][0]['text'], 'pet_type');
-                    if ($value['answers'][10]['choices'][0]['text'] == 'Dog') $petType = taxonomy_get_term_by_name($value['answers'][10]['choices'][0]['text'], 'pet_type');
+                    if ($value['answers'][10]['choices'][0]['text'] == 'Cat') {
+                        $petType = taxonomy_get_term_by_name($value['answers'][10]['choices'][0]['text'], 'pet_type');
+                    }
+                    if ($value['answers'][11]['choices'][0]['text'] == 'Dog') {
+                        $petType = taxonomy_get_term_by_name($value['answers'][11]['choices'][0]['text'], 'pet_type');
+                    }
                     // TODO: The above will cause warnings at the moment
-                    if (!empty($petType)) $pNode->field_pet_type[LANGUAGE_NONE][0]['tid'] = key($petType);
-                    node_object_prepare($cNode); // Set some default values.
-                    $pNode->uid = 1; // Or any id you wish
-
-                    //Create the Survey Response
-                    $srNode = new stdClass(); // We create a new node object
-                    $srNode->type = "survey_response"; // Or any other content type you want
-                    $srNode->title = $value['id'];
-                    $srNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
-                    //$node->path = array('alias' => 'your node path'); // Setting a node path
-                    node_object_prepare($srNode); // Set some default values.
-                    $srNode->uid = 1; // Or any id you wish
-                    $srNode->field_gf_id[LANGUAGE_NONE][0]['value'] = $value['id'];
-                    $srNode->field_contact[LANGUAGE_NONE][0]['target_id'] = $cNode->nid;
-
-                    /* We have a bunch of field collection fields that hold a reference to each pet character and this response's score against each one. For now we are generating random numbers, later we will fill in the real processing.
-
-                    For that I suggest before entering the FC loop we build arrays of each chracter and score, sort (for top 2) then pass into matching fc values somehow */
+                    if (!empty($petType)) {
+                        $pNode->field_pet_type[LANGUAGE_NONE][0]['tid'] = key($petType);
+                    }
 
                     $query = new EntityFieldQuery();
                     $query->entityCondition('entity_type', 'node')
                         ->entityCondition('bundle', 'pet_character')
                         ->propertyCondition('status', 1)
+                        ->propertyOrderBy('title', 'ASC')
                         ->fieldCondition('field_pet_type', 'tid', key($petType))
                         ->fieldCondition('field_pet_sex', 'tid', key($petSex))
                         ->range(0, 10);
@@ -211,16 +206,164 @@ function process_json()
                         $nids = array_keys($result['node']);
                     }
                     $characterArray = $nids;
+
+                    //TODO: Is there a better way that's less brittle?
                     $scoreArray = array();
-                    $scoreArray[0] = 0;
-                    $scoreArray[1] = 0;
-                    $scoreArray[2] = 0;
-                    $scoreArray[3] = 0;
-                    $scoreArray[4] = 0;
-                    $scoreArray[5] = 0;
+                    $i = 0;
+                    foreach ($characterArray as $characterNid => $key) {
+                        $scoreArray[$i] = 0;
+                        $i++;
+                    }
+
+                    $petBreed = taxonomy_get_term_by_name($value['answers'][0]['form_fields'][6]['text'], 'pet_breed');
+                    if (!empty($petBreed)) {
+                        $breedFamily = taxonomy_get_parents(key($petBreed));
+                        $pNode->field_pet_breed[LANGUAGE_NONE][0]['tid'] = key($breedFamily);
+
+                        switch (key($breedFamily)) {
+                            case 8: //Terriers
+                                //Aristocrat
+                                $scoreArray[0] += 24;
+                                //Buddy
+                                $scoreArray[1] += 30;
+                                //Cruiser
+                                $scoreArray[2] += 12;
+                                //Debonaire
+                                $scoreArray[3] += 42;
+                                //Defender
+                                $scoreArray[4] += 72;
+                                //Rough Nut
+                                $scoreArray[5] += 72;
+                                //Twinkle Toes
+                                $scoreArray[6] += 12;
+                                //Wanderer
+                                $scoreArray[7] += 12;
+                                break;
+                            case 11: //Hounds
+                                //Aristocrat
+                                $scoreArray[0] += 36;
+                                //Buddy
+                                $scoreArray[1] += 72;
+                                //Cruiser
+                                $scoreArray[2] += 54;
+                                //Debonaire
+                                $scoreArray[3] += 48;
+                                //Defender
+                                $scoreArray[4] += 12;
+                                //Rough Nut
+                                $scoreArray[5] += 12;
+                                //Twinkle Toes
+                                $scoreArray[6] += 12;
+                                //Wanderer
+                                $scoreArray[7] += 54;
+                                break;
+                            case 14: //Non-Sporting
+                                //Aristocrat
+                                $scoreArray[0] += 60;
+                                //Buddy
+                                $scoreArray[1] += 12;
+                                //Cruiser
+                                $scoreArray[2] += 24;
+                                //Debonaire
+                                $scoreArray[3] += 0;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 6;
+                                //Twinkle Toes
+                                $scoreArray[6] += 72;
+                                //Wanderer
+                                $scoreArray[7] += 6;
+                                break;
+                            case 10: //Gundogs
+                                //Aristocrat
+                                $scoreArray[0] += 24;
+                                //Buddy
+                                $scoreArray[1] += 54;
+                                //Cruiser
+                                $scoreArray[2] += 36;
+                                //Debonaire
+                                $scoreArray[3] += 54;
+                                //Defender
+                                $scoreArray[4] += 36;
+                                //Rough Nut
+                                $scoreArray[5] += 6;
+                                //Twinkle Toes
+                                $scoreArray[6] += 6;
+                                //Wanderer
+                                $scoreArray[7] += 42;
+                                break;
+                            case 9: //Toys
+                                //Aristocrat
+                                $scoreArray[0] += 60;
+                                //Buddy
+                                $scoreArray[1] += 12;
+                                //Cruiser
+                                $scoreArray[2] += 12;
+                                //Debonaire
+                                $scoreArray[3] += 12;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
+                                //Twinkle Toes
+                                $scoreArray[6] += 72;
+                                //Wanderer
+                                $scoreArray[7] += 24;
+                                break;
+                            case 13: //Utility
+                                //Aristocrat
+                                $scoreArray[0] += 12;
+                                //Buddy
+                                $scoreArray[1] += 12;
+                                //Cruiser
+                                $scoreArray[2] += 54;
+                                //Debonaire
+                                $scoreArray[3] += 24;
+                                //Defender
+                                $scoreArray[4] += 42;
+                                //Rough Nut
+                                $scoreArray[5] += 60;
+                                //Twinkle Toes
+                                $scoreArray[6] += 0;
+                                //Wanderer
+                                $scoreArray[7] += 30;
+                                break;
+                            case 12: //Working Dogs
+                                //Aristocrat
+                                $scoreArray[0] += 24;
+                                //Buddy
+                                $scoreArray[1] += 12;
+                                //Cruiser
+                                $scoreArray[2] += 6;
+                                //Debonaire
+                                $scoreArray[3] += 36;
+                                //Defender
+                                $scoreArray[4] += 66;
+                                //Rough Nut
+                                $scoreArray[5] += 72;
+                                //Twinkle Toes
+                                $scoreArray[6] += 0;
+                                //Wanderer
+                                $scoreArray[7] += 24;
+                                break;
+                        }
+                    }
+
+                    node_object_prepare($cNode); // Set some default values.
+                    $pNode->uid = 1; // Or any id you wish
+
+                    //Create the Survey Response
+                    $srNode = new stdClass(); // We create a new node object
+                    $srNode->type = "survey_response"; // Or any other content type you want
+                    $srNode->title = $value['id'];
+                    $srNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                    node_object_prepare($srNode); // Set some default values.
+                    $srNode->uid = 1; // Or any id you wish
+                    $srNode->field_gf_id[LANGUAGE_NONE][0]['value'] = $value['id'];
+                    $srNode->field_contact[LANGUAGE_NONE][0]['target_id'] = $cNode->nid;
 
                     // The below seems very brittle, but not sure what else to do right now?
-
                     //Question 10, what drink? For Dogs
                     if (!empty($value['answers'][1]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][1]['choices'][0]['text']) {
@@ -2081,22 +2224,30 @@ function process_json()
                         'name' => $cNode->title,
                         'cID' => $cNode->nid,
                         'pID' => $pNode->nid,
-                        'url' => url('node/' . $srNode->nid, array('absolute' => true, 'alias' => false)),
+                        'url' => url('node/' . $srNode->nid, array(
+                            'absolute' => TRUE,
+                            'alias' => FALSE
+                        )),
                         'petName' => $pNode->title,
                         'petType' => $petTypes,
                         'petDescription' => $petDescriptions,
                         'petImage' => $petImages,
-                        'pdf' => url('printpdf/' . $srNode->nid, array('absolute' => true, 'alias' => false)),
-                        'shareURL' => url(drupal_get_path_alias('node/' . $pNode->field_primary_pet_character[LANGUAGE_NONE][0]['target_id']), array('absolute' => true, 'alias' => false))
+                        'pdf' => url('printpdf/' . $srNode->nid, array(
+                            'absolute' => TRUE,
+                            'alias' => FALSE
+                        )),
+                        'shareURL' => url(drupal_get_path_alias('node/' . $pNode->field_primary_pet_character[LANGUAGE_NONE][0]['target_id']), array(
+                            'absolute' => TRUE,
+                            'alias' => FALSE
+                        ))
                     );
                     $message = drupal_mail('jpgf', 'srprocesscomplete', $value['answers'][0]['form_fields'][4]['text'], LANGUAGE_NONE, $params);
-                    //dpm($message);
                 } else {
                     watchdog('jpgf', 'Node based on this Survey Response has already been created', NULL, WATCHDOG_NOTICE);
                 }
             }
         }
-        //This can go after testing?
+        //TODO: This can go after testing?
         return $returnData;
     }
 }
