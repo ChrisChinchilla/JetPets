@@ -357,7 +357,8 @@ function process_json()
                     $srNode = new stdClass(); // We create a new node object
                     $srNode->type = "survey_response"; // Or any other content type you want
                     $srNode->title = $value['id'];
-                    $srNode->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                    $srNode->language = LANGUAGE_NONE;
+
                     node_object_prepare($srNode); // Set some default values.
                     $srNode->uid = 1; // Or any id you wish
                     $srNode->field_gf_id[LANGUAGE_NONE][0]['value'] = $value['id'];
