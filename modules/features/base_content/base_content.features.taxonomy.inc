@@ -9,6 +9,14 @@
  */
 function base_content_taxonomy_default_vocabularies() {
   return array(
+    'pet_breed' => array(
+      'name' => 'Pet Breed',
+      'machine_name' => 'pet_breed',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'pet_sex' => array(
       'name' => 'Pet Sex',
       'machine_name' => 'pet_sex',

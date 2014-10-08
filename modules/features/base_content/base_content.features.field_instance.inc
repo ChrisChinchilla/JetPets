@@ -503,6 +503,52 @@ function base_content_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-pet-field_pet_breed'
+  $field_instances['node-pet-field_pet_breed'] = array(
+    'bundle' => 'pet',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 11,
+      ),
+      'embedded_pet' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_pet_breed',
+    'label' => 'Pet Breed',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'node-pet-field_pet_image'
   $field_instances['node-pet-field_pet_image'] = array(
     'bundle' => 'pet',
@@ -1520,6 +1566,7 @@ function base_content_field_default_field_instances() {
   t('Member');
   t('Owner');
   t('Pet');
+  t('Pet Breed');
   t('Pet Cert Image');
   t('Pet Characters');
   t('Pet Image');
