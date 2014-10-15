@@ -369,88 +369,112 @@ function process_json()
                     if (!empty($value['answers'][1]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][1]['choices'][0]['text']) {
                             case 'Fruit Smoothie':
-                                //Wanderer
-                                $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 7;
+                                //Aristocrat
+                                $scoreArray[0] += 7;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 5;
+                                $scoreArray[2] += 5;
+                                //Debonaire
+                                $scoreArray[3] += 7;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 7;
+                                $scoreArray[6] += 7;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Caffiene Hit':
-                                //Wanderer
-                                $scoreArray[0] += 8;
-                                //Rough Nut
-                                $scoreArray[1] += 6;
-                                //Debonaire
-                                $scoreArray[2] += 10;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 0;
+                                $scoreArray[1] += 0;
                                 //Cruiser
-                                $scoreArray[4] += 0;
+                                $scoreArray[2] += 0;
+                                //Debonaire
+                                $scoreArray[3] += 10;
+                                //Defender
+                                $scoreArray[4] += 10;
+                                //Rough Nut
+                                $scoreArray[5] += 6;
                                 //Twinkle Toes
-                                $scoreArray[5] += 7;
+                                $scoreArray[6] += 7;
+                                //Wanderer
+                                $scoreArray[7] += 8;
                                 break;
                             case 'Fine Wine':
-                                //Wanderer
-                                $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 7;
+                                //Aristocrat
+                                $scoreArray[0] += 10;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
+                                $scoreArray[2] += 0;
+                                //Debonaire
+                                $scoreArray[3] += 7;
+                                //Defender
                                 $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 2;
+                                $scoreArray[6] += 2;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Tequila Shot':
-                                //Wanderer
-                                $scoreArray[0] += 6;
-                                //Rough Nut
-                                $scoreArray[1] += 7;
-                                //Debonaire
-                                $scoreArray[2] += 0;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 0;
+                                $scoreArray[2] += 0;
+                                //Debonaire
+                                $scoreArray[3] += 0;
+                                //Defender
+                                $scoreArray[4] += 2;
+                                //Rough Nut
+                                $scoreArray[5] += 7;
                                 //Twinkle Toes
-                                $scoreArray[5] += 4;
+                                $scoreArray[6] += 4;
+                                //Wanderer
+                                $scoreArray[7] += 6;
                                 break;
                             case 'Green Tea':
-                                //Wanderer
-                                $scoreArray[0] += 3;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 6;
+                                //Aristocrat
+                                $scoreArray[0] += 4;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 6;
+                                //Defender
+                                $scoreArray[4] += 7;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 6;
+                                $scoreArray[6] += 6;
+                                //Wanderer
+                                $scoreArray[7] += 3;
                                 break;
                             case 'Cold Beer':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 7;
-                                //Rough Nut
-                                $scoreArray[1] += 10;
-                                //Debonaire
-                                $scoreArray[2] += 0;
                                 //Buddy
-                                $scoreArray[3] += 2;
+                                $scoreArray[1] += 2;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 0;
+                                //Defender
+                                $scoreArray[4] += 5;
+                                //Rough Nut
+                                $scoreArray[5] += 10;
                                 //Twinkle Toes
-                                $scoreArray[5] += 2;
+                                $scoreArray[6] += 2;
+                                //Wanderer
+                                $scoreArray[7] += 7;
                                 break;
                         }
                     }
@@ -549,88 +573,112 @@ function process_json()
                     if (!empty($value['answers'][2]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][2]['choices'][0]['text']) {
                             case 'Care & Compromise':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 7;
                                 //Buddy
-                                $scoreArray[3] += 10;
+                                $scoreArray[1] += 10;
                                 //Cruiser
+                                $scoreArray[2] += 6;
+                                //Debonaire
+                                $scoreArray[3] += 7;
+                                //Defender
                                 $scoreArray[4] += 6;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Police Identity Kit':
-                                //Wanderer
-                                $scoreArray[0] += 10;
-                                //Rough Nut
-                                $scoreArray[1] += 5;
-                                //Debonaire
-                                $scoreArray[2] += 9;
+                                //Aristocrat
+                                $scoreArray[0] += 5;
                                 //Buddy
-                                $scoreArray[3] += 0;
+                                $scoreArray[1] += 0;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 9;
+                                //Defender
+                                $scoreArray[4] += 9;
+                                //Rough Nut
+                                $scoreArray[5] += 5;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 1;
                                 break;
                             case 'Mathematical Approach':
-                                //Wanderer
-                                $scoreArray[0] += 7;
-                                //Rough Nut
-                                $scoreArray[1] += 2;
-                                //Debonair
-                                $scoreArray[2] += 2;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 2;
+                                $scoreArray[1] += 2;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 2;
+                                //Defender
+                                $scoreArray[4] += 10;
+                                //Rough Nut
+                                $scoreArray[5] += 2;
                                 //Twinkle Toes
-                                $scoreArray[5] += 8;
+                                $scoreArray[6] += 8;
+                                //Wanderer
+                                $scoreArray[7] += 7;
                                 break;
                             case 'Outsource - Hired Help':
-                                //Wanderer
-                                $scoreArray[0] += 4;
-                                //Rough Nut
-                                $scoreArray[1] += 4;
-                                //Debonaire
-                                $scoreArray[2] += 5;
+                                //Aristocrat
+                                $scoreArray[0] += 10;
                                 //Buddy
-                                $scoreArray[3] += 0;
+                                $scoreArray[1] += 0;
                                 //Cruiser
-                                $scoreArray[4] += 5;
+                                $scoreArray[2] += 5;
+                                //Debonaire
+                                $scoreArray[3] += 5;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 4;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 4;
                                 break;
                             case 'Visit a psychic':
-                                //Wanderer
-                                $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 1;
+                                //Aristocrat
+                                $scoreArray[0] += 3;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 2;
+                                $scoreArray[2] += 2;
+                                //Debonaire
+                                $scoreArray[3] += 1;
+                                //Defender
+                                $scoreArray[4] += 4;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 5;
+                                $scoreArray[6] += 5;
+                                //Wanderer
+                                $scoreArray[7] += 8;
                                 break;
                             case 'Home DIY approach':
-                                //Wanderer
-                                $scoreArray[0] += 9;
-                                //Rough Nut
-                                $scoreArray[1] += 7;
-                                //Debonaire
-                                $scoreArray[2] += 6;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 6;
+                                $scoreArray[2] += 6;
+                                //Debonaire
+                                $scoreArray[3] += 6;
+                                //Defender
+                                $scoreArray[4] += 8;
+                                //Rough Nut
+                                $scoreArray[5] += 7;
                                 //Twinkle Toes
-                                $scoreArray[5] += 1;
+                                $scoreArray[6] += 1;
+                                //Wanderer
+                                $scoreArray[7] += 9;
                                 break;
                         }
                     }
@@ -729,88 +777,112 @@ function process_json()
                     if (!empty($value['answers'][3]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][3]['choices'][0]['text']) {
                             case 'Sunny spring day':
-                                //Wanderer
-                                $scoreArray[0] += 3;
-                                //Rough Nut
-                                $scoreArray[1] += 3;
-                                //Debonaire
-                                $scoreArray[2] += 9;
+                                //Aristocrat
+                                $scoreArray[0] += 6;
                                 //Buddy
-                                $scoreArray[3] += 8;
+                                $scoreArray[1] += 8;
                                 //Cruiser
-                                $scoreArray[4] += 6;
-                                //Twinkle Toes
+                                $scoreArray[2] += 6;
+                                //Debonaire
+                                $scoreArray[3] += 9;
+                                //Defender
+                                $scoreArray[4] += 2;
+                                //Rough Nut
                                 $scoreArray[5] += 3;
+                                //Twinkle Toes
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 3;
                                 break;
                             case 'Foggy, misty & eerie':
-                                //Wanderer
-                                $scoreArray[0] += 5;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 1;
+                                //Aristocrat
+                                $scoreArray[0] += 10;
                                 //Buddy
-                                $scoreArray[3] += 2;
+                                $scoreArray[1] += 2;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 1;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 8;
+                                $scoreArray[6] += 8;
+                                //Wanderer
+                                $scoreArray[7] += 5;
                                 break;
                             case 'Blustery & Windy':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 8;
-                                //Debonair
-                                $scoreArray[2] += 4;
                                 //Buddy
-                                $scoreArray[3] += 2;
+                                $scoreArray[1] += 2;
                                 //Cruiser
-                                $scoreArray[4] += 0;
+                                $scoreArray[2] += 0;
+                                //Debonaire
+                                $scoreArray[3] += 4;
+                                //Defender
+                                $scoreArray[4] += 10;
+                                //Rough Nut
+                                $scoreArray[5] += 8;
                                 //Twinkle Toes
-                                $scoreArray[5] += 4;
+                                $scoreArray[6] += 4;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Tropics':
-                                //Wanderer
-                                $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 6;
+                                //Aristocrat
+                                $scoreArray[0] += 4;
                                 //Buddy
-                                $scoreArray[3] += 10;
+                                $scoreArray[1] += 10;
                                 //Cruiser
-                                $scoreArray[4] += 3;
-                                //Twinkle Toes
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 6;
+                                //Defender
+                                $scoreArray[4] += 4;
+                                //Rough Nut
                                 $scoreArray[5] += 0;
+                                //Twinkle Toes
+                                $scoreArray[6] += 0;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Thunder & Lightening':
-                                //Wanderer
-                                $scoreArray[0] += 2;
-                                //Rough Nut
-                                $scoreArray[1] += 8;
-                                //Debonaire
-                                $scoreArray[2] += 1;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 0;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 0;
+                                $scoreArray[2] += 6;
+                                //Debonaire
+                                $scoreArray[3] += 1;
+                                //Defender
+                                $scoreArray[4] += 9;
+                                //Rough Nut
+                                $scoreArray[5] += 8;
                                 //Twinkle Toes
-                                $scoreArray[5] += 6;
+                                $scoreArray[6] += 6;
+                                //Wanderer
+                                $scoreArray[7] += 2;
                                 break;
-                            case 'Pink-orange sunset':
-                                //Wanderer
+                            case 'Blue sky sunset':
+                                //Aristocrat
                                 $scoreArray[0] += 5;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 8;
                                 //Buddy
-                                $scoreArray[3] += 6;
+                                $scoreArray[1] += 6;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 8;
+                                //Defender
+                                $scoreArray[4] += 2;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 2;
+                                $scoreArray[6] += 2;
+                                //Wanderer
+                                $scoreArray[7] += 5;
                                 break;
                         }
                     }
@@ -909,88 +981,112 @@ function process_json()
                     if (!empty($value['answers'][4]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][4]['choices'][0]['text']) {
                             case 'Big house with security':
-                                //Wanderer
-                                $scoreArray[0] += 5;
-                                //Rough Nut
-                                $scoreArray[1] += 10;
-                                //Debonaire
-                                $scoreArray[2] += 4;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 0;
+                                $scoreArray[1] += 0;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 4;
+                                //Defender
+                                $scoreArray[4] += 8;
+                                //Rough Nut
+                                $scoreArray[5] += 10;
                                 //Twinkle Toes
-                                $scoreArray[5] += 5;
+                                $scoreArray[6] += 5;
+                                //Wanderer
+                                $scoreArray[7] += 5;
                                 break;
                             case 'Island resort':
-                                //Wanderer
-                                $scoreArray[0] += 2;
-                                //Rough Nut
-                                $scoreArray[1] += 6;
-                                //Debonaire
-                                $scoreArray[2] += 8;
+                                //Aristocrat
+                                $scoreArray[0] += 5;
                                 //Buddy
-                                $scoreArray[3] += 6;
+                                $scoreArray[1] += 6;
                                 //Cruiser
-                                $scoreArray[4] += 4;
-                                //Twinkle Toes
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 8;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
                                 $scoreArray[5] += 2;
+                                //Twinkle Toes
+                                $scoreArray[6] += 2;
+                                //Wanderer
+                                $scoreArray[7] += 2;
                                 break;
                             case 'Shed':
-                                //Wanderer
-                                $scoreArray[0] += 8;
-                                //Rough Nut
-                                $scoreArray[1] += 3;
-                                //Debonair
-                                $scoreArray[2] += 0;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 5;
+                                $scoreArray[1] += 5;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 0;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 6;
                                 //Twinkle Toes
-                                $scoreArray[5] += 7;
+                                $scoreArray[6] += 7;
+                                //Wanderer
+                                $scoreArray[7] += 8;
                                 break;
                             case 'Modern apartment':
-                                //Wanderer
-                                $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 8;
+                                //Aristocrat
+                                $scoreArray[0] += 10;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 8;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 4;
+                                $scoreArray[6] += 4;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Wooden cabin in nature':
-                                //Wanderer
-                                $scoreArray[0] += 5;
-                                //Rough Nut
-                                $scoreArray[1] += 3;
-                                //Debonaire
-                                $scoreArray[2] += 7;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 10;
+                                $scoreArray[1] += 10;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 7;
+                                //Defender
+                                $scoreArray[4] += 7;
+                                //Rough Nut
+                                $scoreArray[5] += 3;
                                 //Twinkle Toes
-                                $scoreArray[5] += 4;
+                                $scoreArray[6] += 4;
+                                //Wanderer
+                                $scoreArray[7] += 5;
                                 break;
                             case 'Motorhome':
-                                //Wanderer
-                                $scoreArray[0] += 6;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 5;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 5;
+                                $scoreArray[1] += 5;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 5;
+                                //Defender
+                                $scoreArray[4] += 2;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 10;
                                 break;
                         }
                     }
@@ -1089,88 +1185,112 @@ function process_json()
                     if (!empty($value['answers'][5]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][5]['choices'][0]['text']) {
                             case 'VW Convertable':
-                                //Wanderer
-                                $scoreArray[0] += 2;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 7;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 4;
+                                $scoreArray[1] += 4;
                                 //Cruiser
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 7;
+                                //Defender
                                 $scoreArray[4] += 3;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 5;
+                                $scoreArray[6] += 5;
+                                //Wanderer
+                                $scoreArray[7] += 2;
                                 break;
                             case 'Harley Davidson':
-                                //Wanderer
-                                $scoreArray[0] += 3;
-                                //Rough Nut
-                                $scoreArray[1] += 9;
-                                //Debonaire
-                                $scoreArray[2] += 6;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 2;
+                                $scoreArray[1] += 2;
                                 //Cruiser
+                                $scoreArray[2] += 0;
+                                //Debonaire
+                                $scoreArray[3] += 6;
+                                //Defender
                                 $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 9;
                                 //Twinkle Toes
-                                $scoreArray[5] += 2;
+                                $scoreArray[6] += 2;
+                                //Wanderer
+                                $scoreArray[7] += 3;
                                 break;
                             case 'Smart Car':
-                                //Wanderer
-                                $scoreArray[0] += 5;
-                                //Rough Nut
-                                $scoreArray[1] += 2;
-                                //Debonair
-                                $scoreArray[2] += 0;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 5;
+                                $scoreArray[1] += 5;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 0;
+                                //Defender
+                                $scoreArray[4] += 10;
+                                //Rough Nut
+                                $scoreArray[5] += 2:
                                 //Twinkle Toes
-                                $scoreArray[5] += 4;
+                                $scoreArray[6] += 4;
+                                //Wanderer
+                                $scoreArray[7] += 5;
                                 break;
                             case 'Limosine':
-                                //Wanderer
-                                $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 2;
-                                //Debonaire
-                                $scoreArray[2] += 9;
+                                //Aristocrat
+                                $scoreArray[0] += 10;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
+                                $scoreArray[2] += 0;
+                                //Debonaire
+                                $scoreArray[3] += 9;
+                                //Defender
                                 $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 2;
                                 //Twinkle Toes
-                                $scoreArray[5] += 0;
+                                $scoreArray[6] += 0;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Icecream Van':
-                                //Wanderer
-                                $scoreArray[0] += 2;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 1;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 7;
+                                $scoreArray[1] += 7;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 1;
+                                //Defender
+                                $scoreArray[4] += 2;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 6;
+                                $scoreArray[6] += 6;
+                                //Wanderer
+                                $scoreArray[7] += 2;
                                 break;
                             case 'Vintage Cadilac':
-                                //Wanderer
-                                $scoreArray[0] += 2;
-                                //Rough Nut
-                                $scoreArray[1] += 7;
-                                //Debonaire
-                                $scoreArray[2] += 6;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 4;
+                                $scoreArray[1] += 4;
                                 //Cruiser
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 6;
+                                //Defender
                                 $scoreArray[4] += 3;
+                                //Rough Nut
+                                $scoreArray[5] += 7;
                                 //Twinkle Toes
-                                $scoreArray[5] += 5;
+                                $scoreArray[6] += 5;
+                                //Wanderer
+                                $scoreArray[7] += 2;
                                 break;
                         }
                     }
@@ -1269,88 +1389,112 @@ function process_json()
                     if (!empty($value['answers'][6]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][6]['choices'][0]['text']) {
                             case 'Fluffy Rabbit':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 1;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 2;
+                                $scoreArray[2] += 2;
+                                //Debonaire
+                                $scoreArray[3] += 1;
+                                //Defender
+                                $scoreArray[4] += 6;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 4;
+                                $scoreArray[6] += 4;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Ninja':
-                                //Wanderer
-                                $scoreArray[0] += 10;
-                                //Rough Nut
-                                $scoreArray[1] += 10;
-                                //Debonaire
-                                $scoreArray[2] += 7;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 2;
+                                $scoreArray[1] += 2;
                                 //Cruiser
-                                $scoreArray[4] += 2;
+                                $scoreArray[2] += 2;
+                                //Debonaire
+                                $scoreArray[3] += 7;
+                                //Defender
+                                $scoreArray[4] += 3;
+                                //Rough Nut
+                                $scoreArray[5] += 10;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 10;
                                 break;
                             case 'Superhero':
-                                //Wanderer
-                                $scoreArray[0] += 5;
-                                //Rough Nut
-                                $scoreArray[1] += 9;
-                                //Debonair
-                                $scoreArray[2] += 10;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 7;
+                                $scoreArray[1] += 7;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 10;
+                                //Defender
+                                $scoreArray[4] += 5;
+                                //Rough Nut
+                                $scoreArray[5] += 9;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 5;
                                 break;
                             case 'Disco diva':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 6;
                                 //Buddy
-                                $scoreArray[3] += 2;
+                                $scoreArray[1] += 2;
                                 //Cruiser
-                                $scoreArray[4] += 2;
-                                //Twinkle Toes
+                                $scoreArray[2] += 2;
+                                //Debonaire
+                                $scoreArray[3] += 6;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
                                 $scoreArray[5] += 0;
+                                //Twinkle Toes
+                                $scoreArray[6] += 0;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Doctor or Nurse':
-                                //Wanderer
-                                $scoreArray[0] += 4;
-                                //Rough Nut
-                                $scoreArray[1] += 4;
-                                //Debonaire
-                                $scoreArray[2] += 7;
+                                //Aristocrat
+                                $scoreArray[0] += 10;
                                 //Buddy
-                                $scoreArray[3] += 5;
+                                $scoreArray[1] += 5;
                                 //Cruiser
-                                $scoreArray[4] += 2;
+                                $scoreArray[2] += 2;
+                                //Debonaire
+                                $scoreArray[3] += 7;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 4;
                                 //Twinkle Toes
-                                $scoreArray[5] += 2;
+                                $scoreArray[6] += 2;
+                                //Wanderer
+                                $scoreArray[7] += 4;
                                 break;
                             case 'Crazy Monster':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 8;
-                                //Debonaire
-                                $scoreArray[2] += 1;
                                 //Buddy
-                                $scoreArray[3] += 5;
+                                $scoreArray[1] += 5;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 1;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 8;
                                 //Twinkle Toes
-                                $scoreArray[5] += 7;
+                                $scoreArray[6] += 7;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                         }
                     }
@@ -1449,88 +1593,112 @@ function process_json()
                     if (!empty($value['answers'][7]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][7]['choices'][0]['text']) {
                             case 'Adventure':
-                                //Wanderer
-                                $scoreArray[0] += 7;
-                                //Rough Nut
-                                $scoreArray[1] += 10;
-                                //Debonaire
-                                $scoreArray[2] += 6;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 5;
+                                $scoreArray[1] += 5;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 6;
+                                //Defender
+                                $scoreArray[4] += 6;
+                                //Rough Nut
+                                $scoreArray[5] += 10;
                                 //Twinkle Toes
-                                $scoreArray[5] += 2;
+                                $scoreArray[6] += 2;
+                                //Wanderer
+                                $scoreArray[7] += 7;
                                 break;
                             case 'Chick flick':
-                                //Wanderer
-                                $scoreArray[0] += 1;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 9;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 9;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 4;
+                                $scoreArray[6] += 4;
+                                //Wanderer
+                                $scoreArray[7] += 1;
                                 break;
                             case 'Documentary':
-                                //Wanderer
-                                $scoreArray[0] += 10;
-                                //Rough Nut
-                                $scoreArray[1] += 5;
-                                //Debonair
-                                $scoreArray[2] += 4;
+                                //Aristocrat
+                                $scoreArray[0] += 6;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 4;
+                                //Defender
+                                $scoreArray[4] += 1;
+                                //Rough Nut
+                                $scoreArray[5] += 5;
                                 //Twinkle Toes
-                                $scoreArray[5] += 7;
+                                $scoreArray[6] += 7;
+                                //Wanderer
+                                $scoreArray[7] += 10;
                                 break;
                             case 'Horror':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 7;
-                                //Rough Nut
-                                $scoreArray[1] += 10;
-                                //Debonaire
-                                $scoreArray[2] += 1;
                                 //Buddy
-                                $scoreArray[3] += 0;
+                                $scoreArray[1] += 0;
                                 //Cruiser
+                                $scoreArray[2] += 0;
+                                //Debonaire
+                                $scoreArray[3] += 1;
+                                //Defender
                                 $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 10;
                                 //Twinkle Toes
-                                $scoreArray[5] += 5;
+                                $scoreArray[6] += 5;
+                                //Wanderer
+                                $scoreArray[7] += 7;
                                 break;
                             case 'Sci Fi':
-                                //Wanderer
-                                $scoreArray[0] += 3;
-                                //Rough Nut
-                                $scoreArray[1] += 5;
-                                //Debonaire
-                                $scoreArray[2] += 6;
+                                //Aristocrat
+                                $scoreArray[0] += 2;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
+                                $scoreArray[2] += 6;
+                                //Debonaire
+                                $scoreArray[3] += 6;
+                                //Defender
                                 $scoreArray[4] += 6;
+                                //Rough Nut
+                                $scoreArray[5] += 5;
                                 //Twinkle Toes
-                                $scoreArray[5] += 4;
+                                $scoreArray[6] += 10;
+                                //Wanderer
+                                $scoreArray[7] += 3;
                                 break;
                             case 'Comedy':
-                                //Wanderer
-                                $scoreArray[0] += 2;
-                                //Rough Nut
-                                $scoreArray[1] += 1;
-                                //Debonaire
-                                $scoreArray[2] += 5;
+                                //Aristocrat
+                                $scoreArray[0] += 1;
                                 //Buddy
-                                $scoreArray[3] += 10;
+                                $scoreArray[1] += 10;
                                 //Cruiser
-                                $scoreArray[4] += 3;
-                                //Twinkle Toes
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 5;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
                                 $scoreArray[5] += 1;
+                                //Twinkle Toes
+                                $scoreArray[6] += 1;
+                                //Wanderer
+                                $scoreArray[7] += 2;
                                 break;
                         }
                     }
@@ -1629,88 +1797,112 @@ function process_json()
                     if (!empty($value['answers'][8]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][8]['choices'][0]['text']) {
                             case 'Fish & Chips':
-                                //Wanderer
-                                $scoreArray[0] += 10;
-                                //Rough Nut
-                                $scoreArray[1] += 8;
-                                //Debonaire
-                                $scoreArray[2] += 2;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 7;
+                                $scoreArray[1] += 7;
                                 //Cruiser
+                                $scoreArray[2] += 5;
+                                //Debonaire
+                                $scoreArray[3] += 2;
+                                //Defender
                                 $scoreArray[4] += 5;
+                                //Rough Nut
+                                $scoreArray[5] += 8;
                                 //Twinkle Toes
-                                $scoreArray[5] += 4;
+                                $scoreArray[6] += 4;
+                                //Wanderer
+                                $scoreArray[7] += 10;
                                 break;
                             case 'Healthy treats':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 2;
                                 //Buddy
-                                $scoreArray[3] += 4;
+                                $scoreArray[1] += 4;
                                 //Cruiser
+                                $scoreArray[2] += 5;
+                                //Debonaire
+                                $scoreArray[3] += 2;
+                                //Defender
                                 $scoreArray[4] += 5;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Gourmet picnic hamper':
-                                //Wanderer
-                                $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonair
-                                $scoreArray[2] += 9;
+                                //Aristocrat
+                                $scoreArray[0] += 10;
                                 //Buddy
-                                $scoreArray[3] += 7;
+                                $scoreArray[1] += 7;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 9;
+                                //Defender
+                                $scoreArray[4] += 2;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 2;
+                                $scoreArray[6] += 2;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Sunday Roast':
-                                //Wanderer
-                                $scoreArray[0] += 6;
-                                //Rough Nut
-                                $scoreArray[1] += 5;
-                                //Debonaire
-                                $scoreArray[2] += 5;
+                                //Aristocrat
+                                $scoreArray[0] += 5;
                                 //Buddy
-                                $scoreArray[3] += 4;
+                                $scoreArray[1] += 4;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 5;
+                                //Defender
+                                $scoreArray[4] += 10;
+                                //Rough Nut
+                                $scoreArray[5] += 5;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 6;
                                 break;
                             case 'Candlelit Dinner':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 2;
-                                //Debonaire
-                                $scoreArray[2] += 10;
                                 //Buddy
-                                $scoreArray[3] += 7;
+                                $scoreArray[1] += 7;
                                 //Cruiser
-                                $scoreArray[4] += 3;
+                                $scoreArray[2] += 3;
+                                //Debonaire
+                                $scoreArray[3] += 10;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 2;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Finger food':
-                                //Wanderer
-                                $scoreArray[0] += 3;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 1;
+                                //Aristocrat
+                                $scoreArray[0] += 1;
                                 //Buddy
-                                $scoreArray[3] += 6;
+                                $scoreArray[1] += 6;
                                 //Cruiser
-                                $scoreArray[4] += 5;
+                                $scoreArray[2] += 5;
+                                //Debonaire
+                                $scoreArray[3] += 1;
+                                //Defender
+                                $scoreArray[4] += 6;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 6;
+                                $scoreArray[6] += 6;
+                                //Wanderer
+                                $scoreArray[7] += 3;
                                 break;
                         }
                     }
@@ -1809,88 +2001,112 @@ function process_json()
                     if (!empty($value['answers'][9]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][9]['choices'][0]['text']) {
                             case 'Fly fishing':
-                                //Wanderer
-                                $scoreArray[0] += 10;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 6;
+                                //Aristocrat
+                                $scoreArray[0] += 5;
                                 //Buddy
-                                $scoreArray[3] += 0;
+                                $scoreArray[1] += 0;
                                 //Cruiser
-                                $scoreArray[4] += 5;
+                                $scoreArray[2] += 5;
+                                //Debonaire
+                                $scoreArray[3] += 6;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 10;
                                 break;
                             case 'Modern Dance':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 5;
-                                //Debonaire
-                                $scoreArray[2] += 2;
                                 //Buddy
-                                $scoreArray[3] += 5;
+                                $scoreArray[1] += 5;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 2;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 5;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Boxing':
-                                //Wanderer
-                                $scoreArray[0] += 4;
-                                //Rough Nut
-                                $scoreArray[1] += 10;
-                                //Debonair
-                                $scoreArray[2] += 7;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 0;
+                                $scoreArray[1] += 0;
                                 //Cruiser
-                                $scoreArray[4] += 0;
+                                $scoreArray[2] += 0;
+                                //Debonaire
+                                $scoreArray[3] += 7;
+                                //Defender
+                                $scoreArray[4] += 5;
+                                //Rough Nut
+                                $scoreArray[5] += 10;
                                 //Twinkle Toes
-                                $scoreArray[5] += 0;
+                                $scoreArray[6] += 0;
+                                //Wanderer
+                                $scoreArray[7] += 4;
                                 break;
                             case 'Tennis':
-                                //Wanderer
-                                $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 6;
+                                //Aristocrat
+                                $scoreArray[0] += 5;
                                 //Buddy
-                                $scoreArray[3] += 10;
+                                $scoreArray[1] += 10;
                                 //Cruiser
+                                $scoreArray[2] += 5;
+                                //Debonaire
+                                $scoreArray[3] += 6;
+                                //Defender
                                 $scoreArray[4] += 5;
-                                //Twinkle Toes
+                                //Rough Nut
                                 $scoreArray[5] += 0;
+                                //Twinkle Toes
+                                $scoreArray[6] += 0;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Pole vaulting':
-                                //Wanderer
-                                $scoreArray[0] += 5;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 5;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 0;
+                                $scoreArray[1] += 0;
                                 //Cruiser
-                                $scoreArray[4] += 0;
+                                $scoreArray[2] += 0;
+                                //Debonaire
+                                $scoreArray[3] += 5;
+                                //Defender
+                                $scoreArray[4] += 7;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 2;
+                                $scoreArray[6] += 2;
+                                //Wanderer
+                                $scoreArray[7] += 5;
                                 break;
                             case 'Chess':
-                                //Wanderer
-                                $scoreArray[0] += 6;
-                                //Rough Nut
-                                $scoreArray[1] += 3;
-                                //Debonaire
-                                $scoreArray[2] += 7;
+                                //Aristocrat
+                                $scoreArray[0] += 10;
                                 //Buddy
-                                $scoreArray[3] += 4;
+                                $scoreArray[1] += 4;
                                 //Cruiser
-                                $scoreArray[4] += 5;
+                                $scoreArray[2] += 5;
+                                //Debonaire
+                                $scoreArray[3] += 7;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 3;
                                 //Twinkle Toes
-                                $scoreArray[5] += 7;
+                                $scoreArray[6] += 7;
+                                //Wanderer
+                                $scoreArray[7] += 6;
                                 break;
                         }
                     }
@@ -1989,88 +2205,112 @@ function process_json()
                     if (!empty($value['answers'][10]['choices'][0]['text']) && (key($petType) == 3)) {
                         switch ($value['answers'][10]['choices'][0]['text']) {
                             case 'Trades person':
-                                //Wanderer
-                                $scoreArray[0] += 7;
-                                //Rough Nut
-                                $scoreArray[1] += 10;
-                                //Debonaire
-                                $scoreArray[2] += 2;
+                                //Aristocrat
+                                $scoreArray[0] += 0;
                                 //Buddy
-                                $scoreArray[3] += 2;
+                                $scoreArray[1] += 2;
                                 //Cruiser
-                                $scoreArray[4] += 2;
+                                $scoreArray[2] += 2;
+                                //Debonaire
+                                $scoreArray[3] += 2;
+                                //Defender
+                                $scoreArray[4] += 8;
+                                //Rough Nut
+                                $scoreArray[5] += 10;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 7;
                                 break;
                             case 'Detective or Spy':
-                                //Wanderer
-                                $scoreArray[0] += 5;
-                                //Rough Nut
-                                $scoreArray[1] += 2;
-                                //Debonaire
-                                $scoreArray[2] += 10;
+                                //Aristocrat
+                                $scoreArray[0] += 3;
                                 //Buddy
-                                $scoreArray[3] += 2;
+                                $scoreArray[1] += 2;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 10;
+                                //Defender
+                                $scoreArray[4] += 7;
+                                //Rough Nut
+                                $scoreArray[5] += 2;
                                 //Twinkle Toes
-                                $scoreArray[5] += 3;
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 5;
                                 break;
                             case 'Personal Assistant':
-                                //Wanderer
+                                //Aristocrat
                                 $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonair
-                                $scoreArray[2] += 8;
                                 //Buddy
-                                $scoreArray[3] += 10;
+                                $scoreArray[1] += 10;
                                 //Cruiser
-                                $scoreArray[4] += 2;
-                                //Twinkle Toes
-                                $scoreArray[5] += 3;
-                                break;
-                            case 'Door bitch':
-                                //Wanderer
-                                $scoreArray[0] += 10;
-                                //Rough Nut
-                                $scoreArray[1] += 8;
+                                $scoreArray[2] += 2;
                                 //Debonaire
-                                $scoreArray[2] += 7;
-                                //Buddy
-                                $scoreArray[3] += 3;
-                                //Cruiser
-                                $scoreArray[4] += 0;
-                                //Twinkle Toes
+                                $scoreArray[3] += 8;
+                                //Defender
+                                $scoreArray[4] += 2;
+                                //Rough Nut
                                 $scoreArray[5] += 0;
+                                //Twinkle Toes
+                                $scoreArray[6] += 3;
+                                //Wanderer
+                                $scoreArray[7] += 0;
+                                break;
+                            case 'Bouncer':
+                                //Aristocrat
+                                $scoreArray[0] += 0;
+                                //Buddy
+                                $scoreArray[1] += 3;
+                                //Cruiser
+                                $scoreArray[2] += 0;
+                                //Debonaire
+                                $scoreArray[3] += 7;
+                                //Defender
+                                $scoreArray[4] += 6;
+                                //Rough Nut
+                                $scoreArray[5] += 8;
+                                //Twinkle Toes
+                                $scoreArray[6] += 0;
+                                //Wanderer
+                                $scoreArray[7] += 10;
                                 break;
                             case 'Mad Scientist':
-                                //Wanderer
-                                $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 0;
+                                //Aristocrat
+                                $scoreArray[0] += 9;
                                 //Buddy
-                                $scoreArray[3] += 3;
+                                $scoreArray[1] += 3;
                                 //Cruiser
-                                $scoreArray[4] += 4;
+                                $scoreArray[2] += 4;
+                                //Debonaire
+                                $scoreArray[3] += 0;
+                                //Defender
+                                $scoreArray[4] += 0;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 6;
+                                $scoreArray[6] += 6;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                             case 'Florist':
-                                //Wanderer
-                                $scoreArray[0] += 0;
-                                //Rough Nut
-                                $scoreArray[1] += 0;
-                                //Debonaire
-                                $scoreArray[2] += 5;
+                                //Aristocrat
+                                $scoreArray[0] += 5;
                                 //Buddy
-                                $scoreArray[3] += 4;
+                                $scoreArray[1] += 4;
                                 //Cruiser
-                                $scoreArray[4] += 1;
+                                $scoreArray[2] += 1;
+                                //Debonaire
+                                $scoreArray[3] += 5;
+                                //Defender
+                                $scoreArray[4] += 4;
+                                //Rough Nut
+                                $scoreArray[5] += 0;
                                 //Twinkle Toes
-                                $scoreArray[5] += 4;
+                                $scoreArray[6] += 4;
+                                //Wanderer
+                                $scoreArray[7] += 0;
                                 break;
                         }
                     }
