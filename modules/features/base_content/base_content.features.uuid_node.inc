@@ -503,19 +503,20 @@ function base_content_uuid_features_default_content() {
   'field_pet_image' => array(
     'und' => array(
       0 => array(
-        'fid' => 59,
+        'fid' => NULL,
         'uid' => 1,
         'filename' => 'defender_m.png',
         'uri' => 'public://defender_m.png',
         'filemime' => 'image/png',
         'filesize' => 55694,
         'status' => 1,
-        'timestamp' => 1412784015,
+        'timestamp' => NULL,
         'uuid' => '9d3886d9-d4cf-4a21-8f5a-320f4b1bd12b',
         'alt' => '',
         'title' => '',
         'width' => 630,
         'height' => 914,
+        'uuid_features_file_url' => 'http://jetpets.dev/public%3A//defender_m.png',
       ),
     ),
   ),

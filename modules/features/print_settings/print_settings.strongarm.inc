@@ -320,7 +320,7 @@ function print_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'print_pdf_cache_enabled';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['print_pdf_cache_enabled'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -598,7 +598,7 @@ function print_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'print_pdf_show_link';
-  $strongarm->value = '1';
+  $strongarm->value = '3';
   $export['print_pdf_show_link'] = $strongarm;
 
   $strongarm = new stdClass();
