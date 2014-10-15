@@ -125,6 +125,7 @@ function process_json()
         // Decode the response
         $responseData = json_decode($response, TRUE);
         dpm($responseData);
+
         $returnData = array();
 
         foreach ($responseData['active_models'] as $value) {
@@ -181,8 +182,8 @@ function process_json()
                     }
 
                     // TODO: This was to get around field inconsistencies, is it still needed?
-                    if ($value['answers'][10]['choices'][0]['text'] == 'Cat') {
-                        $petType = taxonomy_get_term_by_name($value['answers'][10]['choices'][0]['text'], 'pet_type');
+                    if ($value['answers'][11]['choices'][0]['text'] == 'Cat') {
+                        $petType = taxonomy_get_term_by_name($value['answers'][11]['choices'][0]['text'], 'pet_type');
                     }
                     if ($value['answers'][11]['choices'][0]['text'] == 'Dog') {
                         $petType = taxonomy_get_term_by_name($value['answers'][11]['choices'][0]['text'], 'pet_type');
@@ -1232,7 +1233,7 @@ function process_json()
                                 //Defender
                                 $scoreArray[4] += 10;
                                 //Rough Nut
-                                $scoreArray[5] += 2:
+                                $scoreArray[5] += 2;
                                 //Twinkle Toes
                                 $scoreArray[6] += 4;
                                 //Wanderer
