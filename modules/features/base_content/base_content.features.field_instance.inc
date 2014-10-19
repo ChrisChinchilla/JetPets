@@ -553,7 +553,7 @@ function base_content_field_default_field_instances() {
   $field_instances['node-pet-field_pet_image'] = array(
     'bundle' => 'pet',
     'deleted' => 0,
-    'description' => '',
+    'description' => 'The image on the left is the one you have just uploaded. Drag the dash box to select the area you want to be shown on you certificate and a preview is shown on the right.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -584,7 +584,7 @@ function base_content_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_pet_image',
-    'label' => 'Pet Image',
+    'label' => 'Your pets image',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -602,7 +602,7 @@ function base_content_field_default_field_instances() {
       'module' => 'imagefield_crop',
       'settings' => array(
         'collapsible' => 1,
-        'croparea' => '500x500',
+        'croparea' => '350x350',
         'enforce_minimum' => 1,
         'enforce_ratio' => 1,
         'preview_image_style' => 'thumbnail',
@@ -1578,6 +1578,8 @@ function base_content_field_default_field_instances() {
   t('Secondary Pet Character');
   t('Secondary Score');
   t('Subject');
+  t('The image on the left is the one you have just uploaded. Drag the dash box to select the area you want to be shown on you certificate and a preview is shown on the right.');
+  t('Your pets image');
 
   return $field_instances;
 }
