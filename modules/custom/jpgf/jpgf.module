@@ -48,8 +48,9 @@ function jpgf_aiform($form, &$form_state, $nid, $cid)
     $form['#petNode'] = $petNode;
 
     $form['pet_name'] = array(
-        '#markup' => '<p>You are adding an image for ' . $petNode->title . '</p>',
+        '#markup' => '<p>You are adding an image for ' . $petNode->title . '</p><p>The image on the left is the one you have just uploaded. Drag the dash box to select the area you want to be shown on you certificate and a preview is shown on the right.</p>',
     );
+
 
     field_attach_form('node', $petNode, $form, $form_state, NULL, array(
         'field_name' => 'field_pet_image',
