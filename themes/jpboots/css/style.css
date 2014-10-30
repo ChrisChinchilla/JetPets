@@ -398,3 +398,9 @@ body.page-addimage .page-header {
     margin-top: 75px;
     margin-bottom: -45px;
 }
+
+.btn-primary {
+    font-size: 2em;
+    float: right;
+    display: none;
+}
