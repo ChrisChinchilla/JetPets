@@ -31,7 +31,11 @@ $themeURL = url(drupal_get_path('theme', 'jpboots'), array('absolute' => TRUE));
         ?>
     </a>
     <br>
-
+  <p>
+    <strong>Want to get more personal?</strong>
+    <br>
+    Upload an image of your pet <a href="http://petquiz.com.au/addimage/<?php echo $params['pID'] . '/' . $params['cID']?>">by clicking here</a> and personalise <?php echo $params['petName']; ?>s certificate even more!
+  </p>
     <p>Share your result</p>
     <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $params['shareURL'] . '/small' ?>"><img
             src="<?php echo $themeURL; ?>/images/fb_email_logo.png"></a>
@@ -43,11 +47,6 @@ $themeURL = url(drupal_get_path('theme', 'jpboots'), array('absolute' => TRUE));
             src="<?php echo $themeURL; ?>/images/em_email_logo.png"></a>
     <br>
     You can view your result <a href="<?php echo $params['url'] ?>">here</a> and print out and frame if you wish.<br>
-    <p>
-    <strong>Want to get more personal?</strong>
-    <br>
-        Upload an image of your pet <a href="http://petquiz.com.au/addimage/<?php echo $params['pID'] . '/' . $params['cID']?>">by clicking here</a> and personalise <?php echo $params['petName']; ?>s certificate even more!
-    </p>
     Find out how <?php echo $params['petName'] ?> compares to other pets <a href="http://petquiz.com.au/personalities"
                                                                             target="_blank">here</a>.<br>
     <br>
