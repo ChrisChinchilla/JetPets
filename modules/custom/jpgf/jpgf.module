@@ -58,7 +58,7 @@ function jpgf_aiform($form, &$form_state, $nid, $cid)
 
     $form['submit'] = array(
         '#type' => 'submit',
-        '#value' => t('Submit'),
+        '#value' => t('Save'),
         '#weight' => 20,
     );
 
@@ -80,8 +80,18 @@ function jpgf_aiform_submit($form, &$form_state)
         ->fieldCondition('field_pet', 'target_id', $petNode->nid, '=')
         ->range(0, 1);
     $result = $query->execute();
+
     if (isset($result['node'])) {
         $nid = array_keys($result['node']);
+
+        $style = image_style_load('300px_shareable');
+        $fid = $petNode->field_pet_image[LANGUAGE_NONE][0]['fid'];
+        $file = file_load($fid);
+        $source = $file->uri;
+       // $destination = "/sites/default/files/public/300px_shareable/";
+        $destination = image_style_path($style['name'], $source);
+        image_style_create_derivative($style, $source, $destination);
+
         drupal_goto('node/' . $nid[0]);
     }
 }
