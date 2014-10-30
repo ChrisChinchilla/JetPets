@@ -356,7 +356,7 @@ function base_content_image_default_styles() {
     'name' => '300px_shareable',
     'label' => '300px Shareable',
     'effects' => array(
-      5 => array(
+      1 => array(
         'label' => 'Resize',
         'help' => 'Resizing will make images an exact set of dimensions. This may cause images to be stretched or shrunk disproportionately.',
         'effect callback' => 'image_resize_effect',

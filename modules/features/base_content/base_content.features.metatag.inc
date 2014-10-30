@@ -170,7 +170,7 @@ function base_content_metatag_export_default() {
         'value' => '[node:changed:custom:c]',
       ),
       'og:image' => array(
-        'value' => '[node:field-pet:field-primary-pet-character:field_pet_image:300px_shareable]',
+        'value' => '[node:field-pet:field_pet_image:300px_shareable]',
       ),
       'article:published_time' => array(
         'value' => '[node:created:custom:c]',
