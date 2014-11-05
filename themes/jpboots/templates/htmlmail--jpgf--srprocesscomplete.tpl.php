@@ -37,13 +37,13 @@ $themeURL = url(drupal_get_path('theme', 'jpboots'), array('absolute' => TRUE));
     Upload an image of your pet <a href="http://petquiz.com.au/addimage/<?php echo $params['pID'] . '/' . $params['cID']?>">by clicking here</a> and personalise <?php echo $params['petName']; ?>s certificate even more!
   </p>
     <p>Share your result</p>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $params['shareURL'] . '/small' ?>"><img
+    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $params['shareURL'] ?>"><img
             src="<?php echo $themeURL; ?>/images/fb_email_logo.png"></a>
-    <a href="http://twitter.com/intent/tweet?url=<?php echo $params['shareURL'] . '/small' ?>&text=Find out what personality my <?php echo $params['petName'] ?> was!?&via=jetpets"><img
+    <a href="http://twitter.com/intent/tweet?url=<?php echo $params['shareURL'] ?>&text=Find out what personality my <?php echo $params['petName'] ?> was!?&via=jetpets"><img
             src="<?php echo $themeURL; ?>/images/tw_email_logo.png"></a>
-    <a href="https://plus.google.com/share?url=<?php echo $params['shareURL'] . '/small' ?>"><img
+    <a href="https://plus.google.com/share?url=<?php echo $params['shareURL'] ?>"><img
             src="<?php echo $themeURL; ?>/images/gp_email_logo.png"></a>
-    <a href="mailto:subject=What should this say&body=What should this say <?php echo $params['shareURL'] . '/small' ?>"><img
+    <a href="mailto:subject=What should this say&body=What should this say <?php echo $params['shareURL'] ?>"><img
             src="<?php echo $themeURL; ?>/images/em_email_logo.png"></a>
     <br>
     You can view your result <a href="<?php echo $params['url'] ?>">here</a> and print out and frame if you wish.<br>
