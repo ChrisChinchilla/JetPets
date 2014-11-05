@@ -42,12 +42,6 @@ function personality_page_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'shareable' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',

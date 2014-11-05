@@ -16,9 +16,6 @@ function base_content_strongarm() {
   $strongarm->name = 'field_bundle_settings_node__contact';
   $strongarm->value = array(
     'view_modes' => array(
-      'shareable' => array(
-        'custom_settings' => FALSE,
-      ),
       'embedded_pet' => array(
         'custom_settings' => FALSE,
       ),
@@ -49,9 +46,6 @@ function base_content_strongarm() {
   $strongarm->name = 'field_bundle_settings_node__email';
   $strongarm->value = array(
     'view_modes' => array(
-      'shareable' => array(
-        'custom_settings' => FALSE,
-      ),
       'embedded_pet' => array(
         'custom_settings' => FALSE,
       ),
@@ -82,9 +76,6 @@ function base_content_strongarm() {
   $strongarm->name = 'field_bundle_settings_node__pet';
   $strongarm->value = array(
     'view_modes' => array(
-      'shareable' => array(
-        'custom_settings' => FALSE,
-      ),
       'embedded_pet' => array(
         'custom_settings' => TRUE,
       ),
@@ -118,9 +109,6 @@ function base_content_strongarm() {
   $strongarm->name = 'field_bundle_settings_node__pet_character';
   $strongarm->value = array(
     'view_modes' => array(
-      'shareable' => array(
-        'custom_settings' => TRUE,
-      ),
       'embedded_pet' => array(
         'custom_settings' => FALSE,
       ),
@@ -132,6 +120,21 @@ function base_content_strongarm() {
       ),
       'email_share' => array(
         'custom_settings' => TRUE,
+      ),
+      'teaser' => array(
+        'custom_settings' => TRUE,
+      ),
+      'full' => array(
+        'custom_settings' => FALSE,
+      ),
+      'rss' => array(
+        'custom_settings' => FALSE,
+      ),
+      'print' => array(
+        'custom_settings' => FALSE,
+      ),
+      'token' => array(
+        'custom_settings' => FALSE,
       ),
     ),
     'extra_fields' => array(
@@ -167,9 +170,6 @@ function base_content_strongarm() {
         'custom_settings' => FALSE,
       ),
       'token' => array(
-        'custom_settings' => FALSE,
-      ),
-      'shareable' => array(
         'custom_settings' => FALSE,
       ),
       'embedded_pet' => array(

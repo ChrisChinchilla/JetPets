@@ -604,7 +604,7 @@ function base_content_view_mode_page_pattern_default() {
     0 => array(
       'content_type' => 'pet_character',
       'view_mode' => 'default',
-      'url_pattern' => '',
+      'url_pattern' => 'character/%/small',
       'entity_type' => 'node',
       'show_title' => 0,
       'title' => '',
@@ -636,8 +636,8 @@ function base_content_view_mode_page_pattern_default() {
       'view_mode' => 'shareable',
       'url_pattern' => 'character/%/small',
       'entity_type' => 'node',
-      'show_title' => 0,
-      'title' => '',
+      'show_title' => 1,
+      'title' => 'My pet is a [node:title]',
     ),
   );
   $vmp_config[] = array(

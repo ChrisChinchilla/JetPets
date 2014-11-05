@@ -152,25 +152,25 @@ function base_content_metatag_export_default() {
     'instance' => 'node',
     'config' => array(
       'title' => array(
-        'value' => '[node:field-pet:title] is a [node:field-pet:field-primary-pet-character:title]',
+        'value' => 'My pet is a [node:title]',
       ),
       'description' => array(
-        'value' => '[node:field-pet:field-primary-pet-character:body:value]',
+        'value' => 'My pet is a [node:title]. Find out what yours is by taking the pet personality survey at [site:url]',
       ),
       'og:url' => array(
-        'value' => '[current-page:url]',
+        'value' => '[site:url]',
       ),
       'og:title' => array(
-        'value' => '[node:field-pet:title] is a [node:field-pet:field-primary-pet-character:title], what\'s your pet?',
+        'value' => 'My pet is a [node:title], what\'s yours?',
       ),
       'og:description' => array(
-        'value' => '[node:field-pet:field-primary-pet-character:body]',
+        'value' => 'My pet is a [node:title]. Find out what yours is by taking the pet personality survey at [site:url]',
       ),
       'og:updated_time' => array(
         'value' => '[node:changed:custom:c]',
       ),
       'og:image' => array(
-        'value' => '[node:field-pet:field_pet_image:300px_shareable]',
+        'value' => '[node:field_pet_image:300px_shareable]',
       ),
       'article:published_time' => array(
         'value' => '[node:created:custom:c]',
@@ -179,16 +179,16 @@ function base_content_metatag_export_default() {
         'value' => '[node:changed:custom:c]',
       ),
       'twitter:url' => array(
-        'value' => '[current-page:url]',
+        'value' => '[site:url]',
       ),
       'twitter:title' => array(
-        'value' => '[node:field-pet:title] is a [node:field-pet:field-primary-pet-character:title], what\'s your pet?',
+        'value' => 'My pet is a [node:title], what\'s yours?',
       ),
       'twitter:description' => array(
-        'value' => '[node:field-pet:field-primary-pet-character:body]',
+        'value' => 'My pet is a [node:title]. Find out what yours is by taking the pet personality survey at [site:url]',
       ),
       'twitter:image:src' => array(
-        'value' => '[node:field-pet:field-primary-pet-character:field_pet_image:300px_shareable]',
+        'value' => '[node:field_pet_image:300px_shareable]',
       ),
     ),
   );

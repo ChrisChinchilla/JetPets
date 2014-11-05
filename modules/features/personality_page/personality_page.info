@@ -1,10 +1,11 @@
 name = Personality Page
 core = 7.x
 package = Views
-version = 7.x-1.21
+version = 7.x-1.22
 project = personality_page
 dependencies[] = base_content
 dependencies[] = context
+dependencies[] = strongarm
 dependencies[] = text
 dependencies[] = uuid_features
 dependencies[] = views
