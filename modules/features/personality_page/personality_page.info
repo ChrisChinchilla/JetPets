@@ -1,7 +1,7 @@
 name = Personality Page
 core = 7.x
 package = Views
-version = 7.x-1.22
+version = 7.x-2.0
 project = personality_page
 dependencies[] = base_content
 dependencies[] = context

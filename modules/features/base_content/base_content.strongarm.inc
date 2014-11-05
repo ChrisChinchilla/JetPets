@@ -136,6 +136,9 @@ function base_content_strongarm() {
       'token' => array(
         'custom_settings' => FALSE,
       ),
+      'shareable' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(

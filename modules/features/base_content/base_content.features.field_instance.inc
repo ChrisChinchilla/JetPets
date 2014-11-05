@@ -97,6 +97,12 @@ function base_content_field_default_field_instances() {
         'type' => 'email_default',
         'weight' => 0,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -139,6 +145,12 @@ function base_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'list_default',
         'weight' => 2,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -183,6 +195,12 @@ function base_content_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 1,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -220,6 +238,12 @@ function base_content_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'teaser' => array(
@@ -266,6 +290,12 @@ function base_content_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 1,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -311,6 +341,12 @@ function base_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 4,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -368,6 +404,12 @@ function base_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 8,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -419,6 +461,12 @@ function base_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 9,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -476,6 +524,12 @@ function base_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 5,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -518,6 +572,12 @@ function base_content_field_default_field_instances() {
         'weight' => 11,
       ),
       'embedded_pet' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'shareable' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -573,6 +633,12 @@ function base_content_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
+        'weight' => 0,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'teaser' => array(
@@ -634,6 +700,12 @@ function base_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 7,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -676,6 +748,12 @@ function base_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 6,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -725,6 +803,12 @@ function base_content_field_default_field_instances() {
         ),
         'type' => 'entityreference_entity_view',
         'weight' => 1,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -777,6 +861,12 @@ function base_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 2,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -831,6 +921,12 @@ function base_content_field_default_field_instances() {
         'type' => 'entityreference_entity_view',
         'weight' => 2,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -883,6 +979,12 @@ function base_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 3,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -919,9 +1021,8 @@ function base_content_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'email_share' => array(
@@ -943,6 +1044,12 @@ function base_content_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'teaser' => array(
@@ -1006,6 +1113,12 @@ function base_content_field_default_field_instances() {
         'weight' => 0,
       ),
       'embedded_secondary_character' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'shareable' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1083,6 +1196,12 @@ function base_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 5,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1149,6 +1268,12 @@ function base_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 4,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1204,6 +1329,12 @@ function base_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 1,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1245,6 +1376,12 @@ function base_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 3,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -1295,6 +1432,12 @@ function base_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 4,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1340,6 +1483,12 @@ function base_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 5,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1395,6 +1544,12 @@ function base_content_field_default_field_instances() {
         'type' => 'entityreference_entity_view',
         'weight' => 0,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1441,6 +1596,12 @@ function base_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 2,
       ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1482,6 +1643,12 @@ function base_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 1,
+      ),
+      'shareable' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',

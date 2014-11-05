@@ -404,3 +404,16 @@ body.page-addimage .page-header {
     float: right;
     display: none;
 }
+
+.node-type-pet-character #block-system-main {
+    float: left;
+}
+
+.node-type-pet-character #block-block-3 {
+    float: left;
+    margin-left: 20px;
+}
+
+.node-type-pet-character #block-block-3 .btn-primary {
+    display: block;
+}

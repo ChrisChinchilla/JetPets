@@ -1,13 +1,16 @@
 name = Social Sharing
 core = 7.x
 package = Features
-version = 7.x-1.12
+version = 7.x-2.0
 project = social_sharing
 dependencies[] = ctools
+dependencies[] = metatag
 dependencies[] = social_share
 dependencies[] = strongarm
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
+features[metatag][] = node:pet_character
+features[metatag][] = node:survey_response
 features[variable][] = social_share_block
 features[variable][] = social_share_block_settings
 features[variable][] = social_share_description_basic_page

@@ -48,7 +48,7 @@ function personality_page_views_default_views() {
   $handler->display->display_options['fields']['title']['element_type'] = 'h3';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
-  /* Field: Content: Pet Image */
+  /* Field: Content: Your pets image */
   $handler->display->display_options['fields']['field_pet_image']['id'] = 'field_pet_image';
   $handler->display->display_options['fields']['field_pet_image']['table'] = 'field_data_field_pet_image';
   $handler->display->display_options['fields']['field_pet_image']['field'] = 'field_pet_image';
