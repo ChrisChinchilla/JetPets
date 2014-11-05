@@ -2482,7 +2482,7 @@ function process_json()
                             'alias' => FALSE
                         )),
                         'petName' => $pNode->title,
-                        'petType' => $petTypes,
+                        'petType' => $petTypes[0],
                         'petDescription' => $petDescriptions,
                         'petImage' => $petImages,
                         'pdf' => url('printpdf/' . $srNode->nid, array(

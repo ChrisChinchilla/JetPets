@@ -646,8 +646,8 @@ function base_content_view_mode_page_pattern_default() {
       'view_mode' => 'default',
       'url_pattern' => '',
       'entity_type' => 'node',
-      'show_title' => 0,
-      'title' => '',
+      'show_title' => 1,
+      'title' => 'My pet is a [node:field-pet:field-primary-pet-character:title]',
     ),
   );
   $vmp_config[] = array(
