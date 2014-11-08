@@ -1,7 +1,7 @@
 name = Base Content
 core = 7.x
 package = Content
-version = 7.x-4.1
+version = 7.x-4.2
 project = base_content
 dependencies[] = date
 dependencies[] = date_api

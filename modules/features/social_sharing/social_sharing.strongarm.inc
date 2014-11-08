@@ -25,7 +25,7 @@ function social_sharing_strongarm() {
     'social_share_theme' => 'social_share_link',
     'social_share_show_label' => 0,
     'social_share_title' => 'My pet is a [node:field-pet:field-primary-pet-character:title]. Find out what yours is by taking the pet personality survey ',
-    'social_share_url' => '[node:field-pet:field-primary-pet-character:url]',
+    'social_share_url' => '[node:url]',
     'social_share_description' => 'Find out what yours is by taking the pet personality survey at [site:url]',
     'social_share_image' => '[node:field-primary-pet-character:field_pet_image:field_pet_image:600px_shareable]',
     'social_share_networks' => array(

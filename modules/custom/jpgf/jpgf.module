@@ -2489,7 +2489,7 @@ function process_json()
                             'absolute' => TRUE,
                             'alias' => FALSE
                         )),
-                        'shareURL' => url(drupal_get_path_alias('node/' . $pNode->field_primary_pet_character[LANGUAGE_NONE][0]['target_id']), array(
+                        'shareURL' => url(drupal_get_path_alias('node/' . $srNode->nid), array(
                             'absolute' => TRUE,
                             'alias' => FALSE
                         ))
