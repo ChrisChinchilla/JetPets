@@ -512,7 +512,7 @@ if ($field) {
     'name' => 'cert_main_image',
     'label' => 'Cert main Image',
     'effects' => array(
-      6 => array(
+      3 => array(
         'label' => 'Scale',
         'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
         'effect callback' => 'image_scale_effect',
@@ -524,7 +524,7 @@ if ($field) {
         'data' => array(
           'width' => 700,
           'height' => '',
-          'upscale' => 0,
+          'upscale' => 1,
         ),
         'weight' => -10,
       ),
@@ -607,7 +607,15 @@ function base_content_view_mode_page_pattern_default() {
       'url_pattern' => '',
       'entity_type' => 'node',
       'show_title' => 0,
-      'title' => 'My pet is a [node:title]. Find out what yours is by taking the pet personality survey at [site:url]',
+      'title' => '',
+    ),
+    1 => array(
+      'content_type' => 'pet_character',
+      'view_mode' => 'default',
+      'url_pattern' => 'character/%/small',
+      'entity_type' => 'node',
+      'show_title' => 0,
+      'title' => '',
     ),
   );
   $vmp_config[] = array(
@@ -636,8 +644,8 @@ function base_content_view_mode_page_pattern_default() {
       'view_mode' => 'shareable',
       'url_pattern' => 'character/%/small',
       'entity_type' => 'node',
-      'show_title' => 0,
-      'title' => '',
+      'show_title' => 1,
+      'title' => 'My pet is a [node:title]',
     ),
   );
   $vmp_config[] = array(
@@ -646,8 +654,8 @@ function base_content_view_mode_page_pattern_default() {
       'view_mode' => 'default',
       'url_pattern' => '',
       'entity_type' => 'node',
-      'show_title' => 0,
-      'title' => '',
+      'show_title' => 1,
+      'title' => 'My pet is a [node:field-pet:field-primary-pet-character:title]',
     ),
   );
   $vmp_config[] = array(
