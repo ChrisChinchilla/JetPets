@@ -114,7 +114,6 @@ function jpgf_page()
 {
     //This can all go after testing
     $output = process_json();
-    variable_set('last_fetch', date(DATE_ATOM));
     //dpm($output);
     return $output;
 }
@@ -2500,6 +2499,8 @@ function process_json()
             }
         }
         //TODO: This can go after testing?
+        variable_set('last_fetch', date(DATE_ATOM));
+
         return $returnData;
     }
 }
