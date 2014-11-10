@@ -135,7 +135,6 @@ function process_json()
     } else {
         // Decode the response
         $responseData = json_decode($response, TRUE);
-        dpm($responseData);
 
         $returnData = array();
 
