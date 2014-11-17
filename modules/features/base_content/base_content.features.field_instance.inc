@@ -613,7 +613,7 @@ function base_content_field_default_field_instances() {
   $field_instances['node-pet-field_pet_image'] = array(
     'bundle' => 'pet',
     'deleted' => 0,
-    'description' => 'The image on the left is the one you have just uploaded. Drag the dash box to select the area you want to be shown on you certificate and a preview is shown on the right.',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',

@@ -102,6 +102,17 @@ body.page-addimage {
     background-repeat: repeat;
 }
 
+/*@media all and (min-width: 700px) {*/
+    /*.page-addimage .btn,*/
+    /*.page-addimage input {*/
+        /*font-size: 20px;*/
+    /*}*/
+/*}*/
+
+.page-addimage button.form-submit {
+    margin-top:15px;
+}
+
 @media all and (min-width: 700px) {
     body.page-addimage .page-header {
         background: url("../images/logos.png");
@@ -109,6 +120,10 @@ body.page-addimage {
         background-repeat: no-repeat;
         height: 65px;
     }
+}
+
+#edit-field-pet-image-und-0-upload {
+    width: auto;
 }
 
 .imagefield-crop-widget {
@@ -401,9 +416,9 @@ body.page-addimage {
     margin-bottom: -45px;
 }
 
+
 .btn-primary {
     font-size: 2em;
-    float: right;
     display: none;
 }
 
