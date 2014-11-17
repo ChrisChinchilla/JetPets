@@ -10,3 +10,8 @@ function jpboots_preprocess_node(&$variables) {
         $_SESSION['petID'] = $variables['nid'];
     }
 }
+
+//function jpboots_imagefield_crop_widget(&$variables) {
+//    $variables['element']['preview']['#weight'] = 0.011;
+//    $variables['element']['cropbox']['#weight'] = 0.006 ;
+//}

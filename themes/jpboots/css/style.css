@@ -102,24 +102,26 @@ body.page-addimage {
     background-repeat: repeat;
 }
 
-body.page-addimage .page-header {
-    background: url("../images/logos.png");
-    background-position: right;
-    background-repeat: no-repeat;
-    height: 65px;
+@media all and (min-width: 700px) {
+    body.page-addimage .page-header {
+        background: url("../images/logos.png");
+        background-position: right;
+        background-repeat: no-repeat;
+        height: 65px;
+    }
 }
 
 .imagefield-crop-widget {
     max-width: 700px;
 }
 
-.imagefield-crop-preview {
-    float: right;
-}
+/*.imagefield-crop-preview {*/
+    /*float: right;*/
+/*}*/
 
-.imagefield-crop-cropbox {
-    float: left;
-}
+/*.imagefield-crop-cropbox {*/
+    /*float: left;*/
+/*}*/
 
 .page-header {
     border: none;
