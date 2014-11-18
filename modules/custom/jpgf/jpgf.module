@@ -127,7 +127,7 @@ function process_json()
         )
     ));
 
-    $response = file_get_contents('https://api.getfeedback.com/surveys/29880/responses?since=' . urlencode(variable_get('last_fetch')), FALSE, $context);
+    $response = file_get_contents('https://api.getfeedback.com/surveys/29880/responses?since=', FALSE, $context);
     // Check for errors
     if ($response === FALSE) {
         // die(curl_error($ch));
